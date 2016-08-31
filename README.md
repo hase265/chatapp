@@ -1,27 +1,27 @@
 セットアップ
 ---
-* リポジトリの作成  
-githubで新しいリポジトリを作成  
+* リポジトリの作成
+githubで新しいリポジトリを作成
 リポジトリ名はchat_app
 
-* flux_tutorialのリポジトリをクローン  
+* flux_tutorialのリポジトリをクローン
 ```
-$ git clone -b master https://github.com/water23/flux_tutorial.git
+$ git clone -b master https://github.com/Progate/flux_tutorial.git
 ```
-gitリポジトリのURLを変更  
+gitリポジトリのURLを変更
 ```
 $ git remote set-url origin https://github.com/アカウント名/chat_app.git
 ```
 
-* アプリケーションのセットアップ  
+* アプリケーションのセットアップ
 ```sh
 # Gemのインストール
 $ bundle install
 ```
 
-* js周りのセットアップ  
-nodebrew,node,npmを下記サイト等を参考にインストール  
-http://qiita.com/sinmetal/items/154e81823f386279b33c  
+* js周りのセットアップ
+nodebrew,node,npmを下記サイト等を参考にインストール
+http://qiita.com/sinmetal/items/154e81823f386279b33c
 ```sh
 $ npm install
 # jsのビルド
@@ -32,5 +32,5 @@ $ npm run watch
 ```
 
 ###セットアップ完了
-ここまで全て完了したら、fluxチュートリアルに移りましょう。  
+ここまで全て完了したら、fluxチュートリアルに移りましょう。
 チュートリアルはwikiにあります。
