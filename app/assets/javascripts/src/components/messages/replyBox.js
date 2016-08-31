@@ -2,15 +2,6 @@ import React from 'react'
 
 class ReplyBox extends React.Component {
 
-  static get defaultProps() {
-    return {
-    }
-  }
-
-  static get propTypes() {
-    return {
-    }
-  }
   render() {
     return (
       <div className='reply-box'>
