@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module '../app' from '/Users/somakihiro/prog8/flux_tutorial/app/assets/javascripts/src/router'");
