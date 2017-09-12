@@ -87,12 +87,13 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
       break
 
-    /* case ActionTypes.SAVE_MESSAGE:
-      messages.push({
-        content: action.content,
-      })
+    case ActionTypes.SAVE_MESSAGE:
+      const messages = MessagesStore.getMessages()
+      messages.push(
+        action.json.message
+      )
       MessagesStore.emitChange()
-      break */
+      break
   }
 
   return true
