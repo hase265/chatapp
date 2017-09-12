@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  root 'messages#index'
-  resources :messages
+  get 'home/index'
+  get 'home/show'
+
+  root "home#index"
 end
