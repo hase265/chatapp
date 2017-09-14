@@ -2,3 +2,5 @@
   =@user.username
   =@user.email
   =@user.id
+  -if current_user
+    =link_to 'プロフィール編集', edit_user_registration_path
