@@ -7,22 +7,22 @@ import _ from 'lodash'
 
 class MessagesBox extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = { messages: [] }
     this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     MessagesAction.loadMessagesLog()
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
   }
 
-  onStoreChange(){
+  onStoreChange() {
     this.setState({messages: MessagesStore.getMessages()})
   }
 

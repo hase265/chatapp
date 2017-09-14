@@ -1,5 +1,4 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 
 class ReplyBox extends React.Component {
