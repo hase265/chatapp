@@ -1,10 +1,11 @@
 import React from 'react'
 import UsersAction from '../../actions/user'
+import UserList from './userList'
 
 class SearchUser extends React.Component {
   static get propTypes() {
     return {
-      searchString: React.PropTypes.string,
+      username: React.PropTypes.string,
     }
   }
 
@@ -15,29 +16,30 @@ class SearchUser extends React.Component {
 
   get initialState() {
     return {
-      searchString: '',
+      username: '',
     }
   }
 
   handleChange(e) {
-    const searchString = e.target.value
+    const username = e.target.value
     this.setState({
-      searchString,
+      username,
     })
-    UsersAction.loadSearchUsers(searchString)
+    UsersAction.loadSearchUsers(username)
   }
 
   render() {
-    const{searchString} = this.state
+    const{username} = this.state
 
     return (
       <div className='search-box'>
         <input
-          value={searchString}
+          value={username}
           onChange={ this.handleChange.bind(this) }
           className='search-box__input'
           placeholder='ユーザーを検索'
         />
+        <UserList {...this.state} />
       </div>
     )
   }

@@ -4,7 +4,7 @@ import {ActionTypes} from '../constants/app'
 
 class UsersStore extends BaseStore {
   getUsers() {
-    if (!this.get('users')) this.setUsers({})
+    if (!this.get('users')) this.setUsers([])
     return this.get('users')
   }
   setUsers(array) {

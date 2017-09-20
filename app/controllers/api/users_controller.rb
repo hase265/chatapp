@@ -7,11 +7,8 @@ module Api
     end
 
     def search
-      @users = User.all
-      @user = @users.find_by(username: params[:username])
-      if @user
-        return @user
-      end
+      @search = params[:username]
+      @user = User.where("username like ?", "#{@search}%")
       render json: @user
     end
   end
