@@ -6,9 +6,9 @@ export default {
   loadMessagesLog() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/messages') // 取得したいjsonがあるURLを指定する
+      .get('/api/messages')
       .end((error, res) => {
-        if (!error && res.status === 200) { // 200はアクセスが成功した際のステータスコード
+        if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.LOAD_MESSAGES_LOG,

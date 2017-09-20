@@ -7,7 +7,7 @@
         =link_to 'Home', root_path
       - if user_signed_in?
         %li<
-          =link_to 'ユーザーを探す', '#'
+          =link_to 'ユーザーを探す', api_users_search_path
         %li.dropdown<
           %ul
             %li<
