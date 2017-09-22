@@ -15,14 +15,14 @@ class UsersStore extends BaseStore {
 const UserStore = new UsersStore()
 
 UserStore.dispatchToken = Dispatcher.register(payload => {
-    const action = payload.action
+  const action = payload.action
 
-    switch (action.type) {
-      case ActionTypes.LOAD_SEARCH_USERS:
-        UserStore.setUsers(action.json)
-        UserStore.emitChange()
-        break
-    }
-    return true
-  })
+  switch (action.type) {
+    case ActionTypes.LOAD_SEARCH_USERS:
+      UserStore.setUsers(action.json)
+      UserStore.emitChange()
+      break
+  }
+  return true
+})
 export default UserStore

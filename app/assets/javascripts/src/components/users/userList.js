@@ -1,51 +1,56 @@
 import React from 'react'
 import UserStore from '../../stores/user'
+import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
-export default class UserList extends React.Component{
-  static get propTypes(){
-    return{
-      searchString: React.PropTypes.string
+export default class UserList extends React.Component {
+  static get propTypes() {
+    return {
+      searchString: React.PropTypes.string,
     }
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = this.initialState
   }
 
-  get initialState(){
+  get initialState() {
     return this.getStateFromStores()
   }
 
-  getStateFromStores(){
-    return{
-      users: UserStore.getUsers()
+  getStateFromStores() {
+    return {
+      users: UserStore.getUsers(),
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     UserStore.onChange(this.onStoreChange.bind(this))
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     UserStore.offChange(this.onStoreChange.bind(this))
   }
 
-  onStoreChange(){
+  onStoreChange() {
     this.setState(this.getStateFromStores())
   }
 
-  render(){
+  onHandleChange(to_user_id) {
+    UsersAction.makeFriendships(to_user_id)
+  }
+
+  render() {
     const searchUsers = this.state.users
 
-    return(
+    return (
       <ul className='search_user_list'>
         {
           _.map(searchUsers, (user) => {
-            return(
-              <li className="search_user_list_item" key={user.id}>
-                <div className="search_user_list_result">
+            return (
+              <li className='search_user_list_item' key={user.id}>
+                <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, user.id)}>
                   {user.username}
                 </div>
               </li>
@@ -55,6 +60,4 @@ export default class UserList extends React.Component{
       </ul>
     )
   }
-
-
 }
