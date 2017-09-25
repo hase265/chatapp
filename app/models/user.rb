@@ -12,4 +12,12 @@ class User < ActiveRecord::Base
   def friends(other_user)
     friendships_of_from_user.create(to_user_id: other_user.id)
   end
+
+  def goodbye(other_user)
+    friendships_of_from_user.destroy(to_user_id: other_user.id)
+  end
+
+  def bye(other_user)
+    friendships_of_to_user.destroy(from_user_id: other_user.id)
+  end
 end

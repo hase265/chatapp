@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api, { format: 'json'} do
     resources :messages
-    get 'users/index', to: 'users#index'
+    resources :friendships, only: [:index, :create, :destroy]
+    get 'users/index', to: 'friendships#index'
     get 'users/search', to: 'users#search'
     post 'users/search', to: 'friendships#create'
-    resources :friendships, only: [:index, :create, :destroy]
+    delete 'users/:id', to: 'friendships#destroy'
     resources :current_user, only: [:index]
   end
 

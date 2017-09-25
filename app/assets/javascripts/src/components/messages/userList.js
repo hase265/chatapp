@@ -1,6 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
 class UserList extends React.Component {
@@ -33,18 +34,19 @@ class UserList extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
+  onHandleChange(friend_id) {
+    UsersAction.destroyFriendship(friend_id)
+  }
+
   render() {
     const {friends} = this.state
-    console.log(friends)
     return (
       <div>
         {_.map(friends, (friend) => {
           return (
             <ul>
-              <li key={friend.id}>
-                <div>
-                  {friend.username}
-                </div>
+              <li key={friend.id} onClick={this.onHandleChange.bind(this, friend.id)}>
+                <div>{friend.username}</div>
               </li>
             </ul>
           )

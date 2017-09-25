@@ -7,6 +7,7 @@ export const ActionTypes = keyMirror({
   LOAD_SEARCH_USERS: null,
   MAKE_FRIENDSHIPS: null,
   LOAD_FRIENDS: null,
+  DESTROY_FRIENDSHIP: null,
 })
 
 export function CSRFToken() {
