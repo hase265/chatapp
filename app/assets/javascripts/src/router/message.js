@@ -8,7 +8,7 @@ export default class MessageRouter extends BaseRouter {
     this.route('/', this.decorateApp, this.loadFriends)
   }
 
-  loadFriends(ctx, next){
+  loadFriends(ctx, next) {
     MessagesAction.loadFriends()
     next()
   }

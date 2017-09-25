@@ -26,7 +26,7 @@ class UserList extends React.Component {
   }
 
   componentWillUnmount() {
-    UserStore.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -36,7 +36,7 @@ class UserList extends React.Component {
   render() {
     const {friends} = this.state
     console.log(friends)
-    return(
+    return (
       <div>
         {_.map(friends, (friend) => {
           return (
