@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
 
-class UsersStore extends BaseStore {
+class UserStore extends BaseStore {
   getUsers() {
     if (!this.get('users')) this.setUsers([])
     return this.get('users')
@@ -12,17 +12,17 @@ class UsersStore extends BaseStore {
   }
 }
 
-const UserStore = new UsersStore()
+const User = new UserStore()
 
 UserStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
     case ActionTypes.LOAD_SEARCH_USERS:
-      UserStore.setUsers(action.json)
-      UserStore.emitChange()
+      User.setUsers(action.json)
+      User.emitChange()
       break
   }
   return true
 })
-export default UserStore
+export default User

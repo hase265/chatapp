@@ -10,6 +10,14 @@ class ChatStore extends BaseStore {
   setMessages(array) {
     this.set('userMessages', array)
   }
+
+  getFriends() {
+    if (!this.get('friends')) this.setFriends([])
+    return this.get('friends')
+  }
+  setFriends(array) {
+    this.set('friends', array)
+  }
 }
 const MessagesStore = new ChatStore()
 
@@ -29,8 +37,13 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       )
       MessagesStore.emitChange()
       break
-  }
 
+    case ActionTypes.LOAD_FRIENDS:
+      MessagesStore.setFriends(action.json)
+      MessagesStore.emitChange()
+      break
+  }
+  console.log(action.json)
   return true
 })
 

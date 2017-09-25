@@ -1,8 +1,9 @@
 import React from 'react'
-import UserStore from '../../stores/user'
+import MessagesStore from '../../stores/messages'
+import MessagesAction from '../../actions/messages'
 import _ from 'lodash'
 
-class UserList extends React.component {
+class UserList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -15,17 +16,17 @@ class UserList extends React.component {
 
   getStateFromStores() {
     return {
-      users: UserStore.getUsers(),
+      friends: MessagesStore.getFriends(),
     }
   }
 
   componentDidMount() {
-    UserStore.onchange(this.onStoreChange.bind(this))
-    UsersAction.loadFriends(to_user_id)
+    MessagesStore.onChange(this.onStoreChange.bind(this))
+    MessagesAction.loadFriends()
   }
 
   componentWillUnmount() {
-    UserStore.offChange(this.onChange.bind(this))
+    UserStore.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -33,21 +34,24 @@ class UserList extends React.component {
   }
 
   render() {
-    const userList = this.state.user
-
-    return (
-      <ul className="friends_list">{
-
-         _.map(userList, (user) => {
-           return (
-             <li className="friend" key={user.id}>
-              <div className="friend_item">
-                {user.username}
-              </div>
-             </li>
-           )
-         })
-      }</ul>
+    const {friends} = this.state
+    console.log(friends)
+    return(
+      <div>
+        {_.map(friends, (friend) => {
+          return (
+            <ul>
+              <li key={friend.id}>
+                <div>
+                  {friend.username}
+                </div>
+              </li>
+            </ul>
+          )
+        })}
+     </div>
     )
   }
 }
+
+export default UserList

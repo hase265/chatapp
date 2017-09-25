@@ -7,14 +7,15 @@ Rails.application.routes.draw do
     resources :messages
     get 'users/index', to: 'users#index'
     get 'users/search', to: 'users#search'
-    get 'users/search', to: 'friendships#create'
+    post 'users/search', to: 'friendships#create'
     resources :friendships, only: [:index, :create, :destroy]
+    resources :current_user, only: [:index]
   end
 
   get 'home/index'
   get 'home/show'
 
-  root "home#index"
+  root "messages#index"
   get 'users/search', to: 'users#search'
 
   devise_for :users, controllers: {

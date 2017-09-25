@@ -2,7 +2,7 @@ module Api
   class UsersController < ApplicationController
 
     def index
-      @users = User.all
+      @users = current_user.following
       render json: @users
     end
 

@@ -43,23 +43,4 @@ export default{
       })
     })
   },
-
-  loadFriends(to_user_id) {
-    return new Promise((resolve, reject) => {
-      request
-      .get('/api/users/friendships')
-      .end((error, res) => {
-        if (!error && res.status === 200) {
-          const json = JSON.parse(res.text)
-          Dispatcher.handleServerAction({
-            type: ActionTypes.LOAD_FRIENDS,
-            json,
-          })
-          resolve(json)
-        } else {
-          reject(res)
-        }
-      })
-    })
-  },
 }

@@ -48,7 +48,7 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             { userMessages }
           </ul>
-          <ReplyBox />,
+          <ReplyBox />
         </div>
       )
   }

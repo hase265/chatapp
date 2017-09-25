@@ -2,14 +2,18 @@ module Api
   class FriendshipsController < ApplicationController
 
     def index
-      @users = Friendship.all
+      @users = current_user.following
       render json: @users
     end
 
     def create
       @user = User.find(params[:to_user_id])
-      current_user.friends(@user)
-      render json: { friendship: @user }
+      if @user == current_user
+        root_url
+      else
+        current_user.friends(@user)
+      end
+      render json: {friendship: @user}
     end
   end
 end
