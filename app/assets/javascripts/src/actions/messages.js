@@ -45,7 +45,7 @@ export default {
   loadFriends() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/users/index')
+      .get('/api/friendships')
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

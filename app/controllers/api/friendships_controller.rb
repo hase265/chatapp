@@ -18,13 +18,17 @@ module Api
     end
 
     def destroy
-      @user = User.find(params[:friend_id])
-      if @user = Friendship.find_by(to_user_id: params[:friend_id])
-        current_user.goodbye(@user)
+      if Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:friend_id])
+        friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:friend_id])
+        friendship.destroy
+      elsif Friendship.find_by(from_user_id: params[:friend_id], to_user_id: current_user.id)
+        friendship = Friendship.find_by(from_user_id: params[:friend_id], to_user_id: current_user.id)
+        friendship.destroy
       else
-        current_user.bye(@user)
+        flash[:notice] = "This is a bug"
       end
-      render json: {friendship: @user}
+      @users = current_user.following + current_user.follower
+      render json: @users
     end
   end
 end

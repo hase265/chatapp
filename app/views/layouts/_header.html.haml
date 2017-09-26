@@ -1,10 +1,12 @@
 %header
 .container
-  =link_to 'Chat app', root_path
   %nav
     %ul
       %li<
+      -if user_signed_in?
         =link_to 'Home', root_path
+      -else
+        =link_to 'Home', new_user_session_path
       - if user_signed_in?
         %li<
           =link_to 'ユーザーを探す', users_search_path

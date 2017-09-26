@@ -26,7 +26,7 @@ export default{
   makeFriendships(to_user_id) {
     return new Promise((resolve, reject) => {
       request
-      .post('/api/users/index')
+      .post('/api/friendships')
       .set('X-CSRF-Token', CSRFToken())
       .send({to_user_id})
       .end((error, res) => {
@@ -47,7 +47,7 @@ export default{
   destroyFriendship(friend_id) {
     return new Promise((resolve, reject) => {
       request
-      .delete('/api/users/index')
+      .delete('/api/friendships/:id')
       .set('X-CSRF-Token', CSRFToken())
       .send({friend_id})
       .end((error, res) => {
