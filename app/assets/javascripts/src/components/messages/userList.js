@@ -1,6 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import UsersStore from '../../stores/user'
 import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
@@ -16,8 +17,11 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
+    const currentUser = UsersStore.getCurrentUser()
     return {
       friends: MessagesStore.getFriends(),
+      openUserID: MessagesStore.getOpenUserID(),
+      currentUserId: currentUser.id,
     }
   }
 
@@ -38,19 +42,23 @@ class UserList extends React.Component {
     UsersAction.destroyFriendship(friend_id)
   }
 
+  changeOpenChat(openUserID) {
+    MessagesAction.changeChat(openUserID)
+  }
+
   render() {
     const {friends} = this.state
     return (
       <div>
-        {_.map(friends, (friend) => {
-          return (
-            <ul>
-              <li key={friend.id} onClick={this.onHandleChange.bind(this, friend.id)}>
-                <div>{friend.username}</div>
+        <ul>
+          {_.map(friends, (friend) => {
+            return (
+              <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)}>
+                <div>{friend.username} <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
               </li>
-            </ul>
-          )
-        })}
+            )
+          })}
+        </ul>
      </div>
     )
   }

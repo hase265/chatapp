@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_user!
 
     def index
-      @messages = Message.all
+      @messages = Message.where(from_id: current_user.id, to_id: params[:openUserID]) + Message.where(from_id: params[:openUserID], to_id: current_user.id)
       render json: @messages
     end
 

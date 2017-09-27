@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920081839) do
+ActiveRecord::Schema.define(version: 20170927014342) do
+
+  create_table "current_users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "from_user_id"
@@ -22,13 +27,13 @@ ActiveRecord::Schema.define(version: 20170920081839) do
 
   create_table "messages", force: :cascade do |t|
     t.text     "content"
-    t.integer  "user_id"
+    t.integer  "to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "from"
+    t.integer  "from_id"
   end
 
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+  add_index "messages", ["to_id"], name: "index_messages_on_to_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

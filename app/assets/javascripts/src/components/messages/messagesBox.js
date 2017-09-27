@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
-import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'
 
@@ -15,7 +14,7 @@ class MessagesBox extends React.Component {
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
-    MessagesAction.loadMessagesLog()
+    MessagesStore.getMessages()
   }
 
   componentWillUnmount() {

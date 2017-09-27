@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :messages
+  # has_many :messages_from_user, class_name: 'Message', foreign_key: 'from_id', dependent: :destroy
+  # has_many :sending, through: :messages_from_user, source: 'to'
+  # has_many :messages_to_user, class_name: 'Message', foreign_key: 'to_id', dependent: :destroy
+  # has_many :receiving, through: :messages_to_user, source: 'from'
+
+
+  #followに関する
   has_many :friendships_of_from_user, class_name: 'Friendship', :foreign_key => 'from_user_id', :dependent => :destroy
   has_many :following, through: :friendships_of_from_user, :source => 'to_user'
   has_many :friendships_of_to_user, class_name: 'Friendship', :foreign_key => 'to_user_id', :dependent => :destroy

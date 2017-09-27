@@ -1,4 +1,6 @@
 import React from 'react'
+import UserStore from '../../stores/user'
+import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 
 class ReplyBox extends React.Component {
@@ -15,13 +17,15 @@ class ReplyBox extends React.Component {
   getStateFromStores() {
     return {
       value: '',
+      from_id: UserStore.getCurrentUser().id,
+      to_id: MessagesStore.getOpenUserID(),
     }
   }
 
   handleKeyDown(e) {
-    const{value} = this.state
+    const {value, from_id, to_id} = this.state
     if (e.keyCode === 13 && value !== '') {
-      MessagesAction.saveMessage(value)
+      MessagesAction.saveMessage(value, from_id, to_id)
       this.setState({
         value: '',
       })

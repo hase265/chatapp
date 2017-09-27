@@ -22,7 +22,7 @@ export default {
     })
   },
 
-  saveMessage(content) {
+  saveMessage(content, from_id, to_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
@@ -34,6 +34,8 @@ export default {
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_MESSAGE,
             content,
+            from_id,
+            to_id,
             json,
           })
         } else {
@@ -58,6 +60,12 @@ export default {
           reject(res)
         }
       })
+    })
+  },
+  changeChat(openUserID) {
+    Dispatcher.handleViewAction({
+      type: ActionTypes.CHANGE_OPEN_CHAT,
+      userID: openUserID,
     })
   },
 }
