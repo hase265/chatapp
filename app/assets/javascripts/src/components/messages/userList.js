@@ -57,7 +57,7 @@ class UserList extends React.Component {
           {_.map(friends, (friend) => {
             return (
               <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)}>
-                <div>{friend.username}                <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
+                <div>{friend.username} <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
               </li>
             )
           })}

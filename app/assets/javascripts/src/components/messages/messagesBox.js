@@ -14,14 +14,20 @@ class MessagesBox extends React.Component {
   }
 
   get initialState() {
-    return this.onStoreChange.bind(this)
+    return this.getStateFromStores()
+  }
+
+  getStateFromStores() {
+    return {
+      messages: MessagesStore.getMessages(),
+      openUserID: MessagesStore.getOpenUserID(),
+      currentUser: UserStore.getCurrentUser().id,
+    }
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     UserStore.onChange(this.onChangeHandler)
-    UserStore.getCurrentUser()
-    MessagesStore.getMessages()
   }
 
   componentWillUnmount() {
