@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927014342) do
+ActiveRecord::Schema.define(version: 20170929091016) do
 
   create_table "current_users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170927014342) do
     t.integer  "to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "from_id"
+    t.integer  "user_id"
   end
 
   add_index "messages", ["to_id"], name: "index_messages_on_to_id"

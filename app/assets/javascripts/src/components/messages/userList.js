@@ -1,7 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
+import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
-import UsersStore from '../../stores/user'
 import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
@@ -10,6 +10,7 @@ class UserList extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
@@ -17,21 +18,21 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
-    const currentUser = UsersStore.getCurrentUser()
     return {
       friends: MessagesStore.getFriends(),
       openUserID: MessagesStore.getOpenUserID(),
-      currentUserId: currentUser.id,
+      currentUser: UserStore.getCurrentUser().id,
     }
   }
 
   componentDidMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
-    MessagesAction.loadFriends()
+    MessagesStore.onChange(this.onChangeHandler)
+    UserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onStoreChange.bind(this))
+    UserStore.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -43,18 +44,20 @@ class UserList extends React.Component {
   }
 
   changeOpenChat(openUserID) {
-    MessagesAction.changeChat(openUserID)
+    MessagesAction.loadMessagesLog(openUserID)
+    UsersAction.getCurrentUser()
   }
 
   render() {
     const {friends} = this.state
+    console.log(MessagesStore.getOpenUserID())
     return (
       <div>
         <ul>
           {_.map(friends, (friend) => {
             return (
               <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)}>
-                <div>{friend.username} <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
+                <div>{friend.username}                <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
               </li>
             )
           })}

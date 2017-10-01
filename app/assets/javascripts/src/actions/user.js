@@ -68,7 +68,7 @@ export default{
   getCurrentUser() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/users/:id')
+      .get('/api/current_user')
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

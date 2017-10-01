@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
+import UserStore from '../../stores/user'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'
 
@@ -8,26 +9,32 @@ class MessagesBox extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { messages: [] }
+    this.state = this.initialState
     this.onChangeHandler = this.onStoreChange.bind(this)
+  }
+
+  get initialState() {
+    return this.onStoreChange.bind(this)
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
+    UserStore.onChange(this.onChangeHandler)
+    UserStore.getCurrentUser()
     MessagesStore.getMessages()
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
+    UserStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {
-    this.setState({messages: MessagesStore.getMessages()})
+    this.setState({messages: UserStore.getCurrentUser()})
   }
 
   render() {
     const {messages} = this.state
-
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
@@ -41,7 +48,6 @@ class MessagesBox extends React.Component {
           </li>
       )
     })
-
     return (
         <div className='message-box'>
           <ul className='message-box__list'>

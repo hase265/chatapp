@@ -1,8 +1,10 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+import UserStore from './user'
 import {ActionTypes} from '../constants/app'
 
 class ChatStore extends BaseStore {
+
   getMessages() {
     if (!this.get('userMessages')) this.setMessages([])
     return this.get('userMessages')
@@ -20,13 +22,12 @@ class ChatStore extends BaseStore {
   }
 
   getOpenUserID() {
-    if (!this.get('openUserID')) this.setOpenUserID([])
-    return this.get('openUserID')
-  }
-  setOpenUserID(obj) {
-    this.set('openUserID', obj)
+    const users = UserStore.getUsers()
+    const openUserID = users.id
+    return openUserID
   }
 }
+
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
@@ -50,14 +51,9 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.setFriends(action.json)
       MessagesStore.emitChange()
       break
-
-    case ActionTypes.CHANGE_OPEN_CHAT:
-      MessagesStore.setOpenUserID(action.userID)
-      MessagesStore.emitChange()
-      break
   }
   console.log(action.json)
-  console.log(action.userID)
+  console.log(action.openUserID)
   return true
 })
 
