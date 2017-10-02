@@ -21,10 +21,12 @@ class ChatStore extends BaseStore {
     this.set('friends', array)
   }
 
-  getOpenUserID() {
-    const users = UserStore.getUsers()
-    const openUserID = users.id
-    return openUserID
+  getChangeChat() {
+    if (!this.get('chat')) this.setChangeChat([])
+    return this.get('chat')
+  }
+  setChangeChat(obj) {
+    this.set('chat', obj)
   }
 }
 
@@ -40,7 +42,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SAVE_MESSAGE:
-      const messages = MessagesStore.getMessages()
+      const messages = UserStore.getMessages()
       messages.push(
         action.json.message
       )
@@ -51,9 +53,14 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.setFriends(action.json)
       MessagesStore.emitChange()
       break
+
+    case ActionTypes.CHANGE_OPEN_CHAT:
+      MessagesStore.setChangeChat(action.userID)
+      MessagesStore.emitChange()
+      break
   }
   console.log(action.json)
-  console.log(action.openUserID)
+  console.log(action.userID)
   return true
 })
 

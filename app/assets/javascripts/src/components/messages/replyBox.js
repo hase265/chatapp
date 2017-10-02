@@ -1,6 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
@@ -16,16 +17,18 @@ class ReplyBox extends React.Component {
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
+    UserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
+    UserStore.offChange(this.onChangeHandler)
   }
 
   getStateFromStores() {
     return {
       value: '',
-      to_id: MessagesStore.getOpenUserID(),
+      to_id: MessagesStore.getChangeChat(),
     }
   }
 
@@ -39,7 +42,6 @@ class ReplyBox extends React.Component {
       MessagesAction.saveMessage(value, to_id)
       this.setState({
         value: '',
-        to_id: MessagesStore.getOpenUserID(),
       })
     }
   }

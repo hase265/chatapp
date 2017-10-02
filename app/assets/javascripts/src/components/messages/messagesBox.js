@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
+import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'
 
@@ -20,8 +21,7 @@ class MessagesBox extends React.Component {
   getStateFromStores() {
     return {
       messages: MessagesStore.getMessages(),
-      openUserID: MessagesStore.getOpenUserID(),
-      currentUser: UserStore.getCurrentUser().id,
+      currentUser: UserStore.getCurrentUser(),
     }
   }
 
@@ -36,14 +36,15 @@ class MessagesBox extends React.Component {
   }
 
   onStoreChange() {
-    this.setState({messages: UserStore.getCurrentUser()})
+    this.setState(this.getStateFromStores())
   }
 
   render() {
-    const {messages} = this.state
+    const {messages, currentUser} = this.state
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
+        'message-box__item--from-current': message.user_id === currentUser.id,
         'clear': true,
       })
       return (

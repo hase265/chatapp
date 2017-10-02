@@ -8,8 +8,8 @@ module Api
     end
 
     def show
-      @user = User.find(params[:openUserID])
-      @messages = @user.messages.where(to_id: current_user.id)
+      @user = User.find_by(params[:id])
+      @messages = @user.messages.where(to_id: current_user.id) + current_user.messages.where(to_id: @user)
       render json: @messages
     end
 

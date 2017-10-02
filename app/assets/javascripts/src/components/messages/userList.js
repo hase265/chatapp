@@ -20,7 +20,6 @@ class UserList extends React.Component {
   getStateFromStores() {
     return {
       friends: MessagesStore.getFriends(),
-      openUserID: MessagesStore.getOpenUserID(),
       currentUser: UserStore.getCurrentUser().id,
     }
   }
@@ -45,12 +44,12 @@ class UserList extends React.Component {
 
   changeOpenChat(openUserID) {
     MessagesAction.loadMessagesLog(openUserID)
+    MessagesAction.changeChat(openUserID)
     UsersAction.getCurrentUser()
   }
 
   render() {
     const {friends} = this.state
-    console.log(MessagesStore.getOpenUserID())
     return (
       <div>
         <ul>

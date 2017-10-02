@@ -6,7 +6,7 @@ export default {
   loadMessagesLog(openUserID) {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/messages/:id')
+      .get(`/api/messages/${openUserID}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
