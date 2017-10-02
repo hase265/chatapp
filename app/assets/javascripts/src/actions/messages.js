@@ -4,7 +4,6 @@ import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
   loadMessagesLog(openUserID) {
-    debugger
     return new Promise((resolve, reject) => {
       request
       .get(`/api/messages/${openUserID}`)
@@ -29,7 +28,7 @@ export default {
       request
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({content})
+      .send({content, to_id})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

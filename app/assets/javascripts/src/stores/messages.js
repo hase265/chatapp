@@ -1,6 +1,5 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from './user'
 import {ActionTypes} from '../constants/app'
 
 class ChatStore extends BaseStore {
@@ -42,7 +41,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SAVE_MESSAGE:
-      const messages = UserStore.getMessages()
+      const messages = MessagesStore.getMessages()
       messages.push(
         action.json.message
       )

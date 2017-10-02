@@ -2,7 +2,6 @@ import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
-import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'
 
