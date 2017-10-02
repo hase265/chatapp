@@ -62,6 +62,28 @@ export default {
       })
     })
   },
+  saveImageChat(file, to_id) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.MESSAGES}/upload_image`)
+      .set('X-CSRF-Token', CSRFToken())
+      .attach('image', file, file.name)
+      .field('to_id', to_id)
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.SAVE_IMAGE_CHAT,
+            image: file.name
+            to_id,
+            json,
+          })
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
   changeChat(openUserID) {
     Dispatcher.handleViewAction({
       type: ActionTypes.CHANGE_OPEN_CHAT,
