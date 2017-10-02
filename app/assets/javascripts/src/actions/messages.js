@@ -4,6 +4,7 @@ import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
   loadMessagesLog(openUserID) {
+    debugger
     return new Promise((resolve, reject) => {
       request
       .get(`/api/messages/${openUserID}`)
