@@ -28,6 +28,7 @@ class ReplyBox extends React.Component {
   getStateFromStores() {
     return {
       value: '',
+      file: '',
       to_id: MessagesStore.getChangeChat(),
     }
   }
@@ -51,6 +52,14 @@ class ReplyBox extends React.Component {
     })
   }
 
+  loadImages(e) {
+    if (!e.target.files) {
+      return
+    }
+    const file = e.target.files[0]
+    MessagesAction.saveImageChat(file, this.state.to_id)
+  }
+
   render() {
     const {value} = this.state
     return (
@@ -61,6 +70,11 @@ class ReplyBox extends React.Component {
           onChange={ this.updateValue.bind(this) }
           className='reply-box__input'
           placeholder='Type message to reply..'
+        />
+        <input
+          type='file'
+          ref='image'
+          onChange={this.loadImages.bind(this)}
         />
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send

@@ -9,7 +9,7 @@ module Api
 
     def create
       @message = Message.create(content: params[:content], user_id: current_user.id, to_id: params[:to_id])
-      render json: {message: @message}
+      render json: {messages: @message}
     end
 
     def show
@@ -19,7 +19,10 @@ module Api
     end
 
     def upload_image
-      @image_message = current_user.messages.build(params[:id])
+      @image = current_user.messages.create(image: params[:image], user_id: current_user, to_id: params[:to_id])
+      File.binwrite('public/message_images', params[:image].read)
+      render json: {messages: @image}
     end
+
   end
 end
