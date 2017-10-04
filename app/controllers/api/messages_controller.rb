@@ -19,9 +19,11 @@ module Api
     end
 
     def upload_image
-      @image = current_user.messages.create(image: params[:image], user_id: current_user, to_id: params[:to_id])
-      File.binwrite('public/message_images', params[:image].read)
-      render json: {messages: @image}
+      @image_message = current_user.messages.build(params[:id])
+      @image_message.to_id = params[:to_id]
+      @image_message.set_image(params[:image])
+      @image_message.save
+      render json: {messages: @image_message}
     end
 
   end
