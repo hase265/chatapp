@@ -21,11 +21,19 @@ class ChatStore extends BaseStore {
   }
 
   getChangeChat() {
-    if (!this.get('chat')) this.setChangeChat([])
+    if (!this.get('chat')) this.setChangeChat({})
     return this.get('chat')
   }
   setChangeChat(obj) {
     this.set('chat', obj)
+  }
+
+  getImage() {
+    if (!this.get('image')) this.setImage({})
+    return this.get('image')
+  }
+  setImage(obj) {
+    this.set('image', obj)
   }
 }
 
@@ -43,7 +51,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.SAVE_MESSAGE:
       const messages = MessagesStore.getMessages()
       messages.push(
-        action.json.message
+        action.json.messages
       )
       MessagesStore.emitChange()
       break
@@ -55,6 +63,14 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 
     case ActionTypes.CHANGE_OPEN_CHAT:
       MessagesStore.setChangeChat(action.userID)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.SAVE_IMAGE_CHAT:
+      const chats = MessagesStore.getMessages()
+      chats.push(
+        action.json.messages
+      )
       MessagesStore.emitChange()
       break
   }
