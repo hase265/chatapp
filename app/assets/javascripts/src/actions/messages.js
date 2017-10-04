@@ -67,7 +67,7 @@ export default {
       request
       .post(`${APIEndpoints.MESSAGES}/upload_image`)
       .set('X-CSRF-Token', CSRFToken())
-      .attach('image', file)
+      .attach('image', file, file.name)
       .field('to_id', to_id)
       .end((error, res) => {
         if (!error && res.status === 200) {
