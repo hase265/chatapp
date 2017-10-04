@@ -44,17 +44,17 @@ export default{
     })
   },
 
-  destroyFriendship(friend_id) {
+  destroyFriendship(friendId) {
     return new Promise((resolve, reject) => {
       request
-      .delete('/api/friendships/:id')
+      .delete(`/api/friendships/${friendId}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({friend_id})
+      .send({friendId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.DESTROY_FRIENDSHIP,
+            type: ActionTypes.LOAD_FRIENDS,
             json,
           })
           resolve(json)

@@ -3,6 +3,7 @@ import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import UsersAction from '../../actions/user'
+import classNames from 'classnames'
 import _ from 'lodash'
 
 class UserList extends React.Component {
@@ -20,6 +21,7 @@ class UserList extends React.Component {
   getStateFromStores() {
     return {
       friends: MessagesStore.getFriends(),
+      openUserID: MessagesStore.getChangeChat(),
       currentUser: UserStore.getCurrentUser().id,
     }
   }
@@ -38,8 +40,8 @@ class UserList extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
-  onHandleChange(friend_id) {
-    UsersAction.destroyFriendship(friend_id)
+  onHandleChange(friendId) {
+    UsersAction.destroyFriendship(friendId)
   }
 
   changeOpenChat(openUserID) {
@@ -49,13 +51,21 @@ class UserList extends React.Component {
   }
 
   render() {
-    const {friends} = this.state
+    const {friends, openUserID} = this.state
+
+
     return (
       <div className='user-list'>
         <ul className='user-list__item'>
           {_.map(friends, (friend) => {
+            const itemClasses = classNames({
+              'user-list__item': true,
+              'clear': true,
+              'user-list__item--active': openUserID === friend.id
+            })
+
             return (
-              <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)}>
+              <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)} className={itemClasses}>
                 <div className='user-list__item'>{friend.username} <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
               </li>
             )

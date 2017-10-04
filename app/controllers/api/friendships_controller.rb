@@ -18,11 +18,13 @@ module Api
     end
 
     def destroy
-      if Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:friend_id])
-        friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:friend_id])
-        friendship.destroy
-      elsif Friendship.find_by(from_user_id: params[:friend_id], to_user_id: current_user.id)
-        friendship = Friendship.find_by(from_user_id: params[:friend_id], to_user_id: current_user.id)
+      user1 = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id])
+      user2 = Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
+      if user1
+         friendship = user1
+         friendship.destroy
+      elsif user2
+        friendship = user2
         friendship.destroy
       else
         flash[:notice] = "This is a bug"
