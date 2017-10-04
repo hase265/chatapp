@@ -36,7 +36,6 @@ UserStore.dispatchToken = Dispatcher.register(payload => {
       User.emitChange()
       break
   }
-  console.log(action.json)
   return true
 })
 export default User
