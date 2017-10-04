@@ -1,21 +1,18 @@
-%header
-.container
+%header.navbar.navbar-fixed-top.navbar-inverse
+  .container.nav
+    -if user_signed_in?
+      =link_to 'ChatApp', root_path
+    -else
+      =link_to 'ChatApp', new_user_session_path
   %nav
-    %ul
-      %li<
+    %ul.nav.navbar-nav.navbar-right
       -if user_signed_in?
-        =link_to 'Home', root_path
-      -else
-        =link_to 'Home', new_user_session_path
-      - if user_signed_in?
         %li<
           =link_to 'ユーザーを探す', users_search_path
-        %li.dropdown<
-          %ul
-            %li<
-              =link_to 'プロフィール', user_path(current_user.id)
-            %li<
-              =link_to 'ログアウト', destroy_user_session_path, method: :delete
+        %li<
+          =link_to 'プロフィール', user_path(current_user.id)
+        %li<
+          =link_to 'ログアウト', destroy_user_session_path, method: :delete
       - else
         %li<
           =link_to '新規登録', new_user_registration_path
