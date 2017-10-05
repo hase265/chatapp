@@ -18,6 +18,14 @@ class UserStore extends BaseStore {
   setCurrentUser(array) {
     this.set('currentUser', array)
   }
+
+  getSearchID() {
+    if (!this.get('searchID')) this.setSearchID(0)
+    return this.get('searchID')
+  }
+  setSearchID(id) {
+    this.set('searchID', id)
+  }
 }
 
 const User = new UserStore()
@@ -33,6 +41,11 @@ UserStore.dispatchToken = Dispatcher.register(payload => {
 
     case ActionTypes.GET_CURRENT_USER:
       User.setCurrentUser(action.json)
+      User.emitChange()
+      break
+
+    case ActionTypes.MAKE_FLASH_MESSAGE:
+      User.setSearchID(action.to_user_id)
       User.emitChange()
       break
   }

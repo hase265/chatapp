@@ -83,4 +83,10 @@ export default{
       })
     })
   },
+  makeFlashMessage(to_user_id){
+    Dispatcher.handleViewAction({
+      type: ActionTypes.MAKE_FLASH_MESSAGE,
+      userID: to_user_id,
+    })
+  }
 }

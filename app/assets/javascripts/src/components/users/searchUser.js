@@ -17,6 +17,9 @@ class SearchUser extends React.Component {
   get initialState() {
     return {
       username: '',
+      userID: UserStore.getSearchID(),
+      friends: UserStore.getFriends(),
+      currentUser: UserStore.getCurrentUser().id,
     }
   }
 
@@ -29,9 +32,21 @@ class SearchUser extends React.Component {
   }
 
   render() {
-    const{username} = this.state
-
+    const{username, userID, currentUser, friends} = this.state
+    // UserStore.getFriendsの中から、userIDを探し出し、合致したら
+    // Already you're friends, なかったら、Congraturationのフラッシュを
+    // 出したい
     return (
+      const friends = _.map(friends, (friend) => {
+        if (friend.id == userID){
+          document.write("既に友達です！")
+        }else if(currentUser == userID){
+          document.write("あなたです！")
+        }else{
+          document.write("友達になりました！")
+        }
+      })
+
       <div className='search-box'>
         <input
           value={username}

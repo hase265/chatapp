@@ -11,6 +11,7 @@ export const ActionTypes = keyMirror({
   GET_CURRENT_USER: null,
   CHANGE_OPEN_CHAT: null,
   SAVE_IMAGE_CHAT: null,
+  MAKE_FLASH_MESSAGE: null,
 })
 
 export function CSRFToken() {

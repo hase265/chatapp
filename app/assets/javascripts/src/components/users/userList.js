@@ -39,6 +39,7 @@ export default class UserList extends React.Component {
 
   onHandleChange(to_user_id) {
     UsersAction.makeFriendships(to_user_id)
+    UsersAction.makeFlashMessage(to_user_id)
   }
 
   render() {

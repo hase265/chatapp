@@ -13,6 +13,7 @@ module Api
         flash[:notice] = "This is You!"
       else
         current_user.friends(@user)
+        flash[:notice] = "Congraturation! You're friends!"
       end
       render json: {friendship: @user}
     end
