@@ -53,7 +53,6 @@ class UserList extends React.Component {
   render() {
     const {friends, openUserID} = this.state
 
-
     return (
       <div className='user-list'>
         <ul className='user-list__item'>
@@ -61,7 +60,7 @@ class UserList extends React.Component {
             const itemClasses = classNames({
               'user-list__item': true,
               'clear': true,
-              'user-list__item--active': openUserID === friend.id
+              'user-list__item--active': openUserID === friend.id,
             })
 
             return (
