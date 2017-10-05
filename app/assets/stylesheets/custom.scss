@@ -1,2 +1,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+#title{
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+#menu{
+  margin-right: 30px;
+}
+
+.form{
+  margin-top: 90px;
+}
+
+.alert{
+  float: right;
+  margin-top: 60px;
+}

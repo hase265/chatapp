@@ -1,11 +1,11 @@
 %header.navbar.navbar-fixed-top.navbar-inverse
-  .container.nav
+  .nav.navbar-nav.navbar-left#title
     -if user_signed_in?
       =link_to 'ChatApp', root_path
     -else
       =link_to 'ChatApp', new_user_session_path
   %nav
-    %ul.nav.navbar-nav.navbar-right
+    %ul.nav.navbar-nav.navbar-right#menu
       -if user_signed_in?
         %li<
           =link_to 'ユーザーを探す', users_search_path
