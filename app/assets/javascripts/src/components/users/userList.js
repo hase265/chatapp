@@ -1,6 +1,7 @@
 import React from 'react'
 import UserStore from '../../stores/user'
 import UsersAction from '../../actions/user'
+import App from '../messages/app'
 import _ from 'lodash'
 
 export default class UserList extends React.Component {
@@ -39,6 +40,7 @@ export default class UserList extends React.Component {
 
   onHandleChange(to_user_id) {
     UsersAction.makeFriendships(to_user_id)
+    this.setState({redirect: true})
   }
 
   render() {
