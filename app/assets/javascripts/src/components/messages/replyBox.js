@@ -29,7 +29,7 @@ class ReplyBox extends React.Component {
     return {
       value: '',
       file: '',
-      to_id: MessagesStore.getChangeChat(),
+      toId: MessagesStore.getChangeChat(),
     }
   }
 
@@ -38,9 +38,9 @@ class ReplyBox extends React.Component {
   }
 
   handleKeyDown(e) {
-    const {value, to_id} = this.state
+    const {value, toId} = this.state
     if (e.keyCode === 13 && value !== '') {
-      MessagesAction.saveMessage(value, to_id)
+      MessagesAction.saveMessage(value, toId)
       this.setState({
         value: '',
       })
@@ -57,11 +57,11 @@ class ReplyBox extends React.Component {
       return
     }
     const file = e.target.files[0]
-    MessagesAction.saveImageChat(file, this.state.to_id)
+    MessagesAction.saveImageChat(file, this.state.toId)
   }
 
   render() {
-    const {value} = this.state
+    const {value, toId} = this.state
     return (
       <div className='reply-box'>
         <input

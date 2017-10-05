@@ -21,11 +21,11 @@ class ChatStore extends BaseStore {
   }
 
   getChangeChat() {
-    if (!this.get('chat')) this.setChangeChat({})
+    if (!this.get('chat')) this.setChangeChat(0)
     return this.get('chat')
   }
-  setChangeChat(obj) {
-    this.set('chat', obj)
+  setChangeChat(id) {
+    this.set('chat', id)
   }
 
   getImage() {

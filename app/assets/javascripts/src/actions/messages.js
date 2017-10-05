@@ -23,19 +23,19 @@ export default {
     })
   },
 
-  saveMessage(content, to_id) {
+  saveMessage(content, toId) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({content, to_id})
+      .send({content, toId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_MESSAGE,
             content,
-            to_id,
+            toId,
             json,
           })
         } else {
@@ -62,20 +62,20 @@ export default {
       })
     })
   },
-  saveImageChat(file, to_id) {
+  saveImageChat(file, toId) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}/upload_image`)
       .set('X-CSRF-Token', CSRFToken())
       .attach('image', file, file.name)
-      .field('to_id', to_id)
+      .field('to_id', toId)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_IMAGE_CHAT,
             image: file.name,
-            to_id,
+            to_id: toId,
             json,
           })
         } else {

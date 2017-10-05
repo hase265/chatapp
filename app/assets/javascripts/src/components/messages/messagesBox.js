@@ -20,6 +20,7 @@ class MessagesBox extends React.Component {
   getStateFromStores() {
     return {
       messages: MessagesStore.getMessages(),
+      toId: MessagesStore.getChangeChat(),
       currentUser: UserStore.getCurrentUser(),
     }
   }
@@ -39,13 +40,14 @@ class MessagesBox extends React.Component {
   }
 
   render() {
-    const {messages, currentUser} = this.state
+    const {messages, toId, currentUser} = this.state
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
         'message-box__item--from-current': message.user_id === currentUser.id,
         'clear': true,
       })
+      debugger
       return (
           <li key={message.id} className={messageClasses}>
             <div className='message-box__item__contents'>
@@ -59,7 +61,7 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             { userMessages }
           </ul>
-          <ReplyBox />
+            {toId ? <ReplyBox /> : null}
         </div>
       )
   }
