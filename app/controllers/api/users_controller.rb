@@ -9,7 +9,11 @@ module Api
 
     def search
       @search = params[:username]
-      @user = User.where("username like ?", "#{@search}%")
+      if params[:username] == ""
+        @use = nil
+      else
+        @user = User.where("username like ?", "#{@search}%")
+      end
       render json: @user
     end
   end
