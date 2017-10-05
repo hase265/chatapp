@@ -13,8 +13,9 @@ module Api
     end
 
     def show
-      @user = User.find(params[:id])
-      @messages = @user.messages.where(to_id: current_user.id) + current_user.messages.where(to_id: @user)
+      user = User.find(params[:id])
+      messages = Message.where(user_id: current_user.id, to_id: user) + Message.where(user_id: user, to_id: current_user.id)
+      @messages = messages.sort_by{|message| message.id}
       render json: @messages
     end
 
