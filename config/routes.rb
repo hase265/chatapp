@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # home_controller周りは全然使ってない?? であれば消しましょう！
   namespace :api, { format: 'json'} do
     resources :messages do
       collection do
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
         get '/search', to: 'users#search'
       end
     end
+    # ここのルーティング使ってる??
     post 'users/search', to: 'friendships#create'
     delete 'users/:id', to: 'friendships#destroy'
   end

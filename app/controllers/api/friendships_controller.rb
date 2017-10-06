@@ -18,6 +18,10 @@ module Api
     end
 
     def destroy
+      # ・userモデルのデータではないから、変数名を変えた方が良いかも
+      # ・friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id])
+      #              || Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
+      # ってやると変数の数と条件分岐の数が減らせるかな
       user1 = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id])
       user2 = Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
       if user1
