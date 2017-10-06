@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :messages
+  # いらなくなったコードは消そう！
   # has_many :messages_from_user, class_name: 'Message', foreign_key: 'from_id', dependent: :destroy
   # has_many :sending, through: :messages_from_user, source: 'to'
   # has_many :messages_to_user, class_name: 'Message', foreign_key: 'to_id', dependent: :destroy
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :friendships_of_to_user, class_name: 'Friendship', :foreign_key => 'to_user_id', :dependent => :destroy
   has_many :follower, through: :friendships_of_to_user, :source => 'from_user'
 
+  # current_user.friendsってなるとcurrent_userのfriend全員を返すメソッドだと考えちゃうからメソッド名変えた方が良いと思う
   def friends(other_user)
     friendships_of_from_user.create(to_user_id: other_user.id)
   end
