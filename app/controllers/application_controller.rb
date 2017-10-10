@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
-# ここインデントしなくていいと思う
   protected
 
     def configure_permitted_parameters
