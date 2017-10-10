@@ -8,8 +8,7 @@ module Api
     end
 
     def create
-      # @message = current_user.messages.create(...) でも良さそう
-      @message = Message.create(content: params[:content], user_id: current_user.id, to_id: params[:toId])
+      @message = current_user.messages.create(content: params[:content], to_id: params[:toId])
       render json: {messages: @message}
     end
 
@@ -21,8 +20,7 @@ module Api
     end
 
     def upload_image
-      # ここのparams[:id]って何をセットしている??
-      @image_message = current_user.messages.build(params[:id])
+      @image_message = current_user.messages.build
       @image_message.to_id = params[:to_id]
       @image_message.set_image(params[:image])
       @image_message.save
