@@ -3,21 +3,17 @@ module Api
     before_action :authenticate_user!
 
     def show
-      # ここの変数宣言いらないかな
-      @user = current_user
-      render json: @user
+      render json: current_user
     end
 
     def search
-      @search = params[:username]
-      # 上でせっかく変数宣言してるから、それ以降は@searchを使った方がいいと思う
-      # もう少し良い変数名が考えられそう
-      if params[:username] == ""
-        @use = nil
+      search_box = params[:username]
+      if search_box == ""
+        @searching_user = nil
       else
-        @user = User.where("username like ?", "#{@search}%")
+        @searching_user = User.where("username like ?", "#{search_box}%")
       end
-      render json: @user
+      render json: @searching_user
     end
   end
 end

@@ -61,7 +61,7 @@ class ReplyBox extends React.Component {
   }
 
   render() {
-    const {value, toId} = this.state
+    const {value} = this.state
     return (
       <div className='reply-box'>
         <input
