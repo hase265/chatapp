@@ -3,11 +3,6 @@ import UsersAction from '../../actions/user'
 import UserList from './userList'
 
 class SearchUser extends React.Component {
-  static get propTypes() {
-    return {
-      username: React.PropTypes.string,
-    }
-  }
 
   constructor(props) {
     super(props)

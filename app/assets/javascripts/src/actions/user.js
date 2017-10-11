@@ -23,12 +23,12 @@ export default{
     })
   },
 
-  makeFriendships(to_user_id) {
+  makeFriendships(toUserId) {
     return new Promise((resolve, reject) => {
       request
       .post('/api/friendships')
       .set('X-CSRF-Token', CSRFToken())
-      .send({to_user_id})
+      .send({toUserId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

@@ -15,4 +15,14 @@ class User < ActiveRecord::Base
   def make_friends(other_user)
     friendships_of_from_user.create(to_user_id: other_user.id)
   end
+
+  def friends
+    following + follower
+  end
+
+  def friend_of_current_user?
+    friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: id) ||
+                 Friendship.find_by(from_user_id: id, to_user_id: current_user.id)
+    friendship.present?
+  end
 end

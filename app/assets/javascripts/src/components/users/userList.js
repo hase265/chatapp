@@ -21,7 +21,7 @@ export default class UserList extends React.Component {
 
   getStateFromStores() {
     return {
-      users: UserStore.getUsers(),
+      users: UserStore.getUsers()
     }
   }
 
@@ -37,8 +37,8 @@ export default class UserList extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
-  onHandleChange(to_user_id) {
-    UsersAction.makeFriendships(to_user_id)
+  onHandleChange(toUserId) {
+    UserAction.makeFriendships(toUserId)
   }
 
   render() {

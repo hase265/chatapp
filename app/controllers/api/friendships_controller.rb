@@ -6,8 +6,8 @@ module Api
     end
 
     def create
-      @user = User.find(params[:to_user_id])
-      if Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:to_user_id])
+      @user = User.find(params[:toUserId])
+      if Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:toUserId])
         flash[:notice] = "Already You're Friends!"
       elsif @user.id == current_user.id
         flash[:notice] = "This is You!"
@@ -15,6 +15,7 @@ module Api
         current_user.make_friends(@user)
       end
       render json: {friendship: @user}
+
     end
 
     def destroy
