@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react'
 import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
@@ -23,6 +23,7 @@ class UserList extends React.Component {
       friends: MessagesStore.getFriends(),
       openUserID: MessagesStore.getChangeChat(),
       currentUser: UserStore.getCurrentUser().id,
+      messages: MessagesStore.getMessages(),
     }
   }
 

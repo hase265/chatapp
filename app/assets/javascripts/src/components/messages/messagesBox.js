@@ -2,27 +2,24 @@ import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
-import ReplyBox from '../../components/messages/replyBox'
+import ReplyBox from './replyBox'
+import userList from './userList'
 import _ from 'lodash'
 
 class MessagesBox extends React.Component {
 
+  static get propTypes(){
+    return {
+      value: React.propTypes.string,
+      toId: React.propTypes.integer,
+      currentUser: React.propTypes.object
+      messages: React.propTypes.array
+    }
+  }
+
   constructor(props) {
     super(props)
-    this.state = this.initialState
     this.onChangeHandler = this.onStoreChange.bind(this)
-  }
-
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  getStateFromStores() {
-    return {
-      messages: MessagesStore.getMessages(),
-      toId: MessagesStore.getChangeChat(),
-      currentUser: UserStore.getCurrentUser(),
-    }
   }
 
   componentDidMount() {
@@ -40,7 +37,7 @@ class MessagesBox extends React.Component {
   }
 
   render() {
-    const {messages, toId, currentUser} = this.state
+    const {messages, value, toId, currentUser} = this.props
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
@@ -60,6 +57,7 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             { userMessages }
           </ul>
+            <userList />
             {toId ? <ReplyBox /> : null}
         </div>
       )
