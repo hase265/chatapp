@@ -1,5 +1,6 @@
 import React from 'react'
 import UsersAction from '../../actions/user'
+import MessagesAction from '../../actions/messages'
 import UserList from './userList'
 
 class SearchUser extends React.Component {
@@ -21,6 +22,8 @@ class SearchUser extends React.Component {
       username,
     })
     UsersAction.loadSearchUsers(username)
+    UsersAction.getCurrentUser()
+    MessagesAction.loadFriends()
   }
 
   render() {

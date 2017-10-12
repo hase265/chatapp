@@ -74,6 +74,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
       break
   }
+  console.log(action.json)
   return true
 })
 
