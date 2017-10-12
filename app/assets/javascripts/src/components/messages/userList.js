@@ -21,9 +21,9 @@ class UserList extends React.Component {
   getStateFromStores() {
     return {
       friends: MessagesStore.getFriends(),
-      openUserID: MessagesStore.getChangeChat(),
+      toId: MessagesStore.getChangeChat(),
       currentUser: UserStore.getCurrentUser().id,
-      messages: MessagesStore.getMessages(),
+      messages: MessagesStore.getMessages(),
     }
   }
 
@@ -45,14 +45,14 @@ class UserList extends React.Component {
     UsersAction.destroyFriendship(friendId)
   }
 
-  changeOpenChat(openUserID) {
-    MessagesAction.loadMessagesLog(openUserID)
-    MessagesAction.changeChat(openUserID)
+  changeOpenChat(toId) {
+    MessagesAction.loadMessagesLog(toId)
+    MessagesAction.changeChat(toId)
     UsersAction.getCurrentUser()
   }
 
   render() {
-    const {friends, openUserID} = this.state
+    const {friends, toId} = this.state
 
     return (
       <div className='user-list'>
@@ -61,7 +61,7 @@ class UserList extends React.Component {
             const itemClasses = classNames({
               'user-list__item': true,
               'clear': true,
-              'user-list__item--active': openUserID === friend.id,
+              'user-list__item--active': toId === friend.id,
             })
 
             return (

@@ -1,9 +1,14 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import userList from './userList'
 import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
+
+  static get propTypes(){
+    toId: React.propTypes.integer
+  }
 
   constructor(props) {
     super(props)
@@ -29,7 +34,6 @@ class ReplyBox extends React.Component {
     return {
       value: '',
       file: '',
-      toId: MessagesStore.getChangeChat(),
     }
   }
 
@@ -38,7 +42,8 @@ class ReplyBox extends React.Component {
   }
 
   handleKeyDown(e) {
-    const {value, toId} = this.state
+    const {value} = this.state
+    const {toId} = this.props
     if (e.keyCode === 13 && value !== '') {
       MessagesAction.saveMessage(value, toId)
       this.setState({
@@ -57,7 +62,7 @@ class ReplyBox extends React.Component {
       return
     }
     const file = e.target.files[0]
-    MessagesAction.saveImageChat(file, this.state.toId)
+    MessagesAction.saveImageChat(file, this.props.toId)
   }
 
   render() {
