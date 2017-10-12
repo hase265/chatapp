@@ -1,5 +1,6 @@
 import React from 'react'
 import UserStore from '../../stores/user'
+import MessagesStore from '../../stores/messages'
 import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
@@ -21,7 +22,10 @@ export default class UserList extends React.Component {
 
   getStateFromStores() {
     return {
-      users: UserStore.getUsers()
+      users: UserStore.getUsers(),
+      friends: MessagesStore.getFriends(),
+      currentUser: UserStore.getCurrentUser(),
+      flash: "",
     }
   }
 
@@ -38,7 +42,17 @@ export default class UserList extends React.Component {
   }
 
   onHandleChange(toUserId) {
-    UserAction.makeFriendships(toUserId)
+    const { friends, flash, currentUser }  = this.state
+    {_.map(friends, (friend) => {
+      if (friend.id == toUserId){
+        this.setState({flash: "Already you're friends!"})
+      } else if(friend.id == currentUser.id) {
+        this.setState({flash: "This is You!"})
+      } else {
+        this.setState({flash: "Congratulation! Let's Start Chat!"})
+      }
+    })}
+    UsersAction.makeFriendships(toUserId)
   }
 
   render() {
@@ -58,6 +72,9 @@ export default class UserList extends React.Component {
           })
         }
       </ul>
+    )
+    return(
+      <p>{flash}</p>
     )
   }
 }

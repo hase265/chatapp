@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
   has_many :messages
   validates :username, presence: true
 
-  #followに関する
   has_many :friendships_of_from_user, class_name: 'Friendship', foreign_key: 'from_user_id', dependent: :destroy
   has_many :following, through: :friendships_of_from_user, source: 'to_user'
   has_many :friendships_of_to_user, class_name: 'Friendship', foreign_key: 'to_user_id', dependent: :destroy
@@ -21,8 +20,8 @@ class User < ActiveRecord::Base
   end
 
   def friend_of_current_user?
-    friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: id) ||
-                 Friendship.find_by(from_user_id: id, to_user_id: current_user.id)
+    friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: self.id) ||
+                 Friendship.find_by(from_user_id: self.id, to_user_id: current_user.id)
     friendship.present?
   end
 end
