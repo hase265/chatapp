@@ -8,13 +8,13 @@ module Api
 
     def search
       search_box = params[:searchString]
-      if search_box == ""
-        @search = nil
+      if search_box == ''
+        render json: nil
       else
-        @search = User.where("username like ?", "#{search_box}%")
+        @search = User.where('username like ?', "#{search_box}%")
+        @user = @search.as_json(methods: :friend_of_current_user?)
+        render json: @user
       end
-      @user = @search.as_json(methods: :friend_of_current_user?)
-      render json: @user
     end
   end
 end

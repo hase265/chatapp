@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   end
 
   def friends(other_user_id)
-    Friendship.find(from_user_id: id, to_user_id: other_user_id) ||
-    Friendship.find(from_user_id: other_user_id, to_user_id: id)
+    Friendship.find_by(from_user_id: id, to_user_id: other_user_id) ||
+    Friendship.find_by(from_user_id: other_user_id, to_user_id: id)
   end
 
 end

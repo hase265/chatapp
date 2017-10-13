@@ -6,44 +6,28 @@ import _ from 'lodash'
 
 export default class UserList extends React.Component {
 
-  static get propTypes() {
-    return {
-      searchString: React.propTypes.string,
-    }
-  }
-
   constructor(props) {
     super(props)
     this.state = this.initialState
   }
 
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  getStateFromStores() {
-    return {
-      friends: MessagesStore.getFriends(),
-      currentUser: UserStore.getCurrentUser(),
-      flash: '',
+  static get PropTypes(){
+    return{
+      friends: React.PropTypes.object,
+      currentUser: React.PropTypes.object,
+      searchUsers: React.PropTypes.string,
     }
   }
 
-  componentDidMount() {
-    UserStore.onChange(this.onStoreChange.bind(this))
-  }
-
-  componentWillUnmount() {
-    UserStore.offChange(this.onStoreChange.bind(this))
-  }
-
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
+  get initialState() {
+    return {
+      flash: ''
+    }
   }
 
   onHandleChange(toUserId) {
-    const {friends, currentUser} = this.state
-    for (var i = 0; i < friends.length; i++) {
+    const {friends, currentUser} = this.props
+    for (let i = 0; i < friends.length; i++) {
       if (friends[i].id === toUserId) {
         this.setState({flash: 'Already you\'re friends!'})
         return
@@ -53,23 +37,22 @@ export default class UserList extends React.Component {
       this.setState({flash: 'This is You!'})
       return
     }
-    this.setState({flash: 'Congratulation! Let\'s Start Chat!'})
+    this.setState({flash: 'Congratulations! Let\'s Start Chat!'})
     UsersAction.makeFriendships(toUserId)
   }
 
   render() {
-    const {searchString} = this.props
     const {flash} = this.state
-
+    const {searchUsers} = this.props
     return (
       <div>
         <ul className='search_user_list'>
           {
-            _.map(searchString, (searchUser) => {
+            _.map(searchUsers, (searchUser) => {
               return (
-                <li className='search_user_list_item' key={searchString.id}>
-                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchString.id)}>
-                    {searchString.username}
+                <li className='search_user_list_item' key={searchUser.id}>
+                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchUser.id)}>
+                    {searchUser.username}
                   </div>
                 </li>
               )

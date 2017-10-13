@@ -4,6 +4,7 @@ import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import UsersAction from '../../actions/user'
 import classNames from 'classnames'
+import MessagesBox from './messagesBox'
 import _ from 'lodash'
 
 class UserList extends React.Component {
@@ -33,8 +34,8 @@ class UserList extends React.Component {
   }
 
   componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    UserStore.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onChangeHandler)
+    UserStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {
@@ -52,7 +53,7 @@ class UserList extends React.Component {
   }
 
   render() {
-    const {friends, toId} = this.state
+    const {friends, toId, currentUser, messages} = this.state
 
     return (
       <div className='user-list'>
@@ -71,6 +72,7 @@ class UserList extends React.Component {
             )
           })}
         </ul>
+        <MessagesBox {...this.state} />
      </div>
     )
   }
