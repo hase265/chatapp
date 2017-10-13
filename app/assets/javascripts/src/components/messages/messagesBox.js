@@ -8,12 +8,11 @@ import _ from 'lodash'
 
 class MessagesBox extends React.Component {
 
-  static get propTypes(){
+  static get propTypes() {
     return {
-      value: React.propTypes.string,
       toId: React.propTypes.integer,
-      currentUser: React.propTypes.object
-      messages: React.propTypes.array
+      currentUser: React.propTypes.object,
+      messages: React.propTypes.array,
     }
   }
 
@@ -37,7 +36,7 @@ class MessagesBox extends React.Component {
   }
 
   render() {
-    const {messages, value, toId, currentUser} = this.props
+    const {messages, toId, currentUser} = this.props
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,

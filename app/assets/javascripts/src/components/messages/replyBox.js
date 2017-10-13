@@ -6,10 +6,9 @@ import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
-  static get propTypes(){
-    toId: React.propTypes.integer
+  static get propTypes() {
+    toId: React.propTypes.integer,
   }
-
   constructor(props) {
     super(props)
     this.state = this.initialState

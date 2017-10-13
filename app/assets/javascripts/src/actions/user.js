@@ -3,11 +3,11 @@ import Dispatcher from '../dispatcher'
 import {ActionTypes, CSRFToken} from '../constants/app'
 
 export default{
-  loadSearchUsers(username) {
+  loadSearchUsers(searchString) {
     return new Promise((resolve, reject) => {
       request
       .get('/api/users/search')
-      .query({username})
+      .query({searchString})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

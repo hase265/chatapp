@@ -5,9 +5,10 @@ import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
 export default class UserList extends React.Component {
+
   static get propTypes() {
     return {
-      searchString: React.PropTypes.string,
+      searchString: React.propTypes.string,
     }
   }
 
@@ -22,7 +23,6 @@ export default class UserList extends React.Component {
 
   getStateFromStores() {
     return {
-      searchUsers: UserStore.getUsers(),
       friends: MessagesStore.getFriends(),
       currentUser: UserStore.getCurrentUser(),
       flash: '',
@@ -45,28 +45,29 @@ export default class UserList extends React.Component {
     const { friends, flash, currentUser } = this.state
     _.map(friends, (friend) => {
       if (friend.id === toUserId) {
-        this.setState({flash: "Already you're friends!"})
+        this.setState({flash: 'Already you\'re friends!'})
       } else if (friend.id === currentUser.id) {
         this.setState({flash: 'This is You!'})
       } else {
-        this.setState({flash: "Congratulation! Let's Start Chat!"})
+        this.setState({flash: 'Congratulation! Let\'s Start Chat!'})
         UsersAction.makeFriendships(toUserId)
       }
     })
   }
 
   render() {
-    const { flash, searchUsers } = this.state
+    const {searchString} = this.props
+    const { flash } = this.state
 
     return (
       <div>
         <ul className='search_user_list'>
           {
-            _.map(searchUsers, (searchUser) => {
+            _.map(searchString, (searchUser) => {
               return (
-                <li className='search_user_list_item' key={searchUser.id}>
-                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchUser.id)}>
-                    {searchUser.username}
+                <li className='search_user_list_item' key={searchString.id}>
+                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchString.id)}>
+                    {searchString.username}
                   </div>
                 </li>
               )

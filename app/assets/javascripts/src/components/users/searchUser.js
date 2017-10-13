@@ -1,6 +1,5 @@
 import React from 'react'
 import UsersAction from '../../actions/user'
-import MessagesAction from '../../actions/messages'
 import UserList from './userList'
 
 class SearchUser extends React.Component {
@@ -12,27 +11,25 @@ class SearchUser extends React.Component {
 
   get initialState() {
     return {
-      username: '',
+      searchString: '',
     }
   }
 
   handleChange(e) {
-    const username = e.target.value
+    const searchString = e.target.value
     this.setState({
-      username,
+      searchString,
     })
-    UsersAction.loadSearchUsers(username)
-    UsersAction.getCurrentUser()
-    MessagesAction.loadFriends()
+    UsersAction.loadSearchUsers(searchString)
   }
 
   render() {
-    const{username} = this.state
+    const{searchString} = this.state
 
     return (
       <div className='search-box'>
         <input
-          value={username}
+          value={searchString}
           onChange={ this.handleChange.bind(this) }
           className='search-box__input'
           placeholder='ユーザーを検索'

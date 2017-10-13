@@ -7,7 +7,7 @@ module Api
     end
 
     def search
-      search_box = params[:username]
+      search_box = params[:searchString]
       if search_box == ""
         @search = nil
       else
