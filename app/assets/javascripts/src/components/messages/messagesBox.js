@@ -46,7 +46,7 @@ class MessagesBox extends React.Component {
       return (
           <li key={message.id} className={messageClasses}>
             <div className='message-box__item__contents'>
-              { message.image ? <img className='image-message' src={`/message_images/${message.image}`} /> : message.content }
+              {message.image ? <img className='image-message' src={`/message_images/${message.image}`} /> : message.content}
             </div>
           </li>
       )
@@ -54,7 +54,7 @@ class MessagesBox extends React.Component {
     return (
         <div className='message-box'>
           <ul className='message-box__list'>
-            { userMessages }
+            {userMessages}
           </ul>
             <userList />
             {toId ? <ReplyBox /> : null}

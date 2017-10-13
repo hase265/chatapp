@@ -1,14 +1,16 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import userList from './userList'
 import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
   static get propTypes() {
-    toId: React.propTypes.integer,
+    return {
+      toId: React.propTypes.integer,
+    }
   }
+
   constructor(props) {
     super(props)
     this.state = this.initialState

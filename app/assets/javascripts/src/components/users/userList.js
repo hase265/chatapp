@@ -42,22 +42,24 @@ export default class UserList extends React.Component {
   }
 
   onHandleChange(toUserId) {
-    const { friends, flash, currentUser } = this.state
-    _.map(friends, (friend) => {
-      if (friend.id === toUserId) {
+    const {friends, currentUser} = this.state
+    for (var i = 0; i < friends.length; i++) {
+      if (friends[i].id === toUserId) {
         this.setState({flash: 'Already you\'re friends!'})
-      } else if (friend.id === currentUser.id) {
-        this.setState({flash: 'This is You!'})
-      } else {
-        this.setState({flash: 'Congratulation! Let\'s Start Chat!'})
-        UsersAction.makeFriendships(toUserId)
+        return
       }
-    })
+    }
+    if (toUserId === currentUser.id) {
+      this.setState({flash: 'This is You!'})
+      return
+    }
+    this.setState({flash: 'Congratulation! Let\'s Start Chat!'})
+    UsersAction.makeFriendships(toUserId)
   }
 
   render() {
     const {searchString} = this.props
-    const { flash } = this.state
+    const {flash} = this.state
 
     return (
       <div>

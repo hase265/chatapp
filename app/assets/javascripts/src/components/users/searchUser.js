@@ -34,7 +34,7 @@ class SearchUser extends React.Component {
           className='search-box__input'
           placeholder='ユーザーを検索'
         />
-        <UserList {...this.state} />
+        <UserList searchString={this.state.searchString} />
       </div>
     )
   }
