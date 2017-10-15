@@ -1,11 +1,9 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
-  static get PropTypes() {
+  static get propTypes() {
     return {
       toId: React.PropTypes.integer,
     }
@@ -13,33 +11,7 @@ class ReplyBox extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = this.initialState
-    this.onChangeHandler = this.onStoreChange.bind(this)
-  }
-
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  componentDidMount() {
-    MessagesStore.onChange(this.onChangeHandler)
-    UserStore.onChange(this.onChangeHandler)
-  }
-
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onChangeHandler)
-    UserStore.offChange(this.onChangeHandler)
-  }
-
-  getStateFromStores() {
-    return {
-      value: '',
-      file: '',
-    }
-  }
-
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
+    this.state = {value: '', file: ''}
   }
 
   handleKeyDown(e) {

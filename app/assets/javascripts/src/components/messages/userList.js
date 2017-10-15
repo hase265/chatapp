@@ -1,45 +1,16 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import UsersAction from '../../actions/user'
 import classNames from 'classnames'
-import MessagesBox from './messagesBox'
 import _ from 'lodash'
 
 class UserList extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = this.initialState
-    this.onChangeHandler = this.onStoreChange.bind(this)
-  }
-
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  getStateFromStores() {
+  static get propTypes() {
     return {
-      friends: MessagesStore.getFriends(),
-      toId: MessagesStore.getChangeChat(),
-      currentUser: UserStore.getCurrentUser().id,
-      messages: MessagesStore.getMessages(),
+      friends: React.PropTypes.array,
+      toId: React.PropTypes.integer,
     }
-  }
-
-  componentDidMount() {
-    MessagesStore.onChange(this.onChangeHandler)
-    UserStore.onChange(this.onChangeHandler)
-  }
-
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onChangeHandler)
-    UserStore.offChange(this.onChangeHandler)
-  }
-
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
   }
 
   onHandleChange(friendId) {
@@ -49,12 +20,10 @@ class UserList extends React.Component {
   changeOpenChat(toId) {
     MessagesAction.loadMessagesLog(toId)
     MessagesAction.changeChat(toId)
-    UsersAction.getCurrentUser()
   }
 
   render() {
-    const {friends, toId, currentUser, messages} = this.state
-
+    const {friends, toId} = this.props
     return (
       <div className='user-list'>
         <ul className='user-list__item'>
@@ -72,7 +41,6 @@ class UserList extends React.Component {
             )
           })}
         </ul>
-        <MessagesBox {...this.state} />
      </div>
     )
   }

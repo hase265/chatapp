@@ -47,7 +47,7 @@ class SearchUser extends React.Component {
   }
 
   render() {
-    const{searchString, friends, currentUser, searchUsers} = this.state
+    const{searchString} = this.state
 
     return (
       <div className='search-box'>

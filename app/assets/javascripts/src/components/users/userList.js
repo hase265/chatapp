@@ -1,6 +1,4 @@
 import React from 'react'
-import UserStore from '../../stores/user'
-import MessagesStore from '../../stores/messages'
 import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
@@ -8,20 +6,14 @@ export default class UserList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = this.initialState
+    this.state = {flash: ''}
   }
 
-  static get PropTypes() {
+  static get propTypes() {
     return {
       friends: React.PropTypes.object,
       currentUser: React.PropTypes.object,
       searchUsers: React.PropTypes.string,
-    }
-  }
-
-  get initialState() {
-    return {
-      flash: ''
     }
   }
 

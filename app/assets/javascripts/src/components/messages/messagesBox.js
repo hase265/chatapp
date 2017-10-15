@@ -5,7 +5,7 @@ import _ from 'lodash'
 
 class MessagesBox extends React.Component {
 
-  static get PropTypes() {
+  static get propTypes() {
     return {
       toId: React.PropTypes.integer,
       currentUser: React.PropTypes.object,
@@ -34,7 +34,7 @@ class MessagesBox extends React.Component {
         <ul className='message-box__list'>
           {userMessages}
         </ul>
-          {toId ? <ReplyBox /> : null}
+          {toId ? <ReplyBox toId={toId} /> : null}
       </div>
       )
   }
