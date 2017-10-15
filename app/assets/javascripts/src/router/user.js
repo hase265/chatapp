@@ -9,12 +9,12 @@ export default class SearchRouter extends BaseRouter {
     this.route('/users/search', this.decorateSearchUser, this.getFriends, this.getCurrentUser)
   }
 
-  getFriends(ctx, next){
+  getFriends(ctx, next) {
     MessagesAction.loadFriends()
     next()
   }
 
-  getCurrentUser(ctx, next){
+  getCurrentUser(ctx, next) {
     UsersAction.getCurrentUser()
     next()
   }

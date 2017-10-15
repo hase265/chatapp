@@ -9,7 +9,7 @@ export default class MessageRouter extends BaseRouter {
     this.route('/', this.decorateApp, this.loadFriends, this.getCurrentUser)
   }
 
-  getCurrentUser(ctx, next){
+  getCurrentUser(ctx, next) {
     UsersAction.getCurrentUser()
     next()
   }

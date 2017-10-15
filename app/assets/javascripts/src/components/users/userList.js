@@ -11,8 +11,8 @@ export default class UserList extends React.Component {
     this.state = this.initialState
   }
 
-  static get PropTypes(){
-    return{
+  static get PropTypes() {
+    return {
       friends: React.PropTypes.object,
       currentUser: React.PropTypes.object,
       searchUsers: React.PropTypes.string,

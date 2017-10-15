@@ -1,7 +1,5 @@
 import React from 'react'
 import classNames from 'classNames'
-import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
 import ReplyBox from './replyBox'
 import _ from 'lodash'
 

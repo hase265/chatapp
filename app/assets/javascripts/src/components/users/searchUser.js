@@ -17,7 +17,7 @@ class SearchUser extends React.Component {
   }
 
   getStateFromStores() {
-    return{
+    return {
       friends: MessagesStore.getFriends(),
       currentUser: UserStore.getCurrentUser(),
       searchUsers: UserStore.getUsers(),
@@ -34,7 +34,7 @@ class SearchUser extends React.Component {
     MessagesStore.offChange(this.onChangeHandler)
   }
 
-  onStoreChange(){
+  onStoreChange() {
     this.setState(this.getStateFromStores())
   }
 
