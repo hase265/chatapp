@@ -20,7 +20,7 @@ class App extends React.Component {
     return {
       friends: MessagesStore.getFriends(),
       toId: MessagesStore.getChangeChat(),
-      currentUser: UserStore.getCurrentUser().id,
+      currentUserId: UserStore.getCurrentUser(),
       messages: MessagesStore.getMessages(),
     }
   }
@@ -40,13 +40,13 @@ class App extends React.Component {
   }
 
   render() {
-    const {friends, toId, currentUser, messages} = this.state
+    const {friends, toId, currentUserId, messages} = this.state
     return (
-        <div className='app'>
-          <UserList friends={friends} toId={toId} />
-          <MessagesBox toId={toId} currentUser={currentUser} messages={messages} />
-        </div>
-      )
+      <div className='app'>
+        <UserList friends={friends} toId={toId} />
+        <MessagesBox toId={toId} currentUserId={currentUserId} messages={messages} />
+      </div>
+    )
   }
 }
 

@@ -8,17 +8,17 @@ class MessagesBox extends React.Component {
   static get propTypes() {
     return {
       toId: React.PropTypes.number,
-      currentUser: React.PropTypes.number,
+      currentUserId: React.PropTypes.number,
       messages: React.PropTypes.array,
     }
   }
 
   render() {
-    const {messages, toId, currentUser} = this.props
+    const {messages, toId, currentUserId} = this.props
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
-        'message-box__item--from-current': message.user_id === currentUser,
+        'message-box__item--from-current': message.user_id === currentUserId,
         'clear': true,
       })
       return (
@@ -34,7 +34,7 @@ class MessagesBox extends React.Component {
         <ul className='message-box__list'>
           {userMessages}
         </ul>
-          {toId ? <ReplyBox toId={toId} /> : null}
+        {toId && <ReplyBox toId={toId} />}
       </div>
       )
   }

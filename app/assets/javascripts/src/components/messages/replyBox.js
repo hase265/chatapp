@@ -11,7 +11,7 @@ class ReplyBox extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {value: '', file: ''}
+    this.state = {value: ''}
   }
 
   handleKeyDown(e) {
@@ -31,7 +31,7 @@ class ReplyBox extends React.Component {
   }
 
   loadImages(e) {
-    if (!e.target.files){
+    if (!e.target.files) {
       return
     }
     const file = e.target.files[0]

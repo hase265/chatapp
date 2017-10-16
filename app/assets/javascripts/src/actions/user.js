@@ -1,12 +1,12 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
-import {ActionTypes, CSRFToken} from '../constants/app'
+import {APIEndpoints, ActionTypes, CSRFToken} from '../constants/app'
 
 export default{
   loadSearchUsers(searchString) {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/users/search')
+      .get(`${APIEndpoints.USERS}/search`)
       .query({searchString})
       .end((error, res) => {
         if (!error && res.status === 200) {
@@ -26,7 +26,7 @@ export default{
   makeFriendships(toUserId) {
     return new Promise((resolve, reject) => {
       request
-      .post('/api/friendships')
+      .post(`${APIEndpoints.FRIENDSHIPS}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({toUserId})
       .end((error, res) => {
@@ -47,7 +47,7 @@ export default{
   destroyFriendship(friendId) {
     return new Promise((resolve, reject) => {
       request
-      .delete(`/api/friendships/${friendId}`)
+      .delete(`${APIEndpoints.FRIENDSHIPS}/${friendId}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({friendId})
       .end((error, res) => {
@@ -68,7 +68,7 @@ export default{
   getCurrentUser() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/current_user')
+      .get(`${APIEndpoints.CURRENT_USER}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
