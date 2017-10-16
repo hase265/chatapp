@@ -26,7 +26,7 @@ export default {
   saveMessage(content, toId) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.MESSAGES}`)
+      .post(APIEndpoints.MESSAGES)
       .set('X-CSRF-Token', CSRFToken())
       .send({content, toId})
       .end((error, res) => {
@@ -47,7 +47,7 @@ export default {
   loadFriends() {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.FRIENDSHIPS}`)
+      .get(APIEndpoints.FRIENDSHIPS)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

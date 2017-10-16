@@ -12,11 +12,11 @@ class UserStore extends BaseStore {
   }
 
   getCurrentUser() {
-    if (!this.get('currentUser')) this.setCurrentUser(0)
+    if (!this.get('currentUser')) this.setCurrentUser({})
     return this.get('currentUser')
   }
-  setCurrentUser(id) {
-    this.set('currentUser', id)
+  setCurrentUser(obj){
+    this.set('currentUser', obj)
   }
 }
 

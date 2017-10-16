@@ -19,7 +19,7 @@ class SearchUser extends React.Component {
   getStateFromStores() {
     return {
       friends: MessagesStore.getFriends(),
-      currentUser: UserStore.getCurrentUser(),
+      currentUserId: UserStore.getCurrentUser().id,
       searchUsers: UserStore.getUsers(),
     }
   }
