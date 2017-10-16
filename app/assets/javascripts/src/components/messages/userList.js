@@ -31,7 +31,7 @@ class UserList extends React.Component {
             const itemClasses = classNames({
               'user-list__item': true,
               'clear': true,
-              'user-list__item--active': toId === friend.id,
+              'user-list__item--active': friend.id === toId,
             })
 
             return (
