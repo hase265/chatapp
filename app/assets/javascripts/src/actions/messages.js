@@ -6,7 +6,7 @@ export default {
   loadMessagesLog(toId) {
     return new Promise((resolve, reject) => {
       request
-      .get(`/api/messages/${toId}`)
+      .get(`${APIEndpoints.MESSAGES}/${toId}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -47,7 +47,7 @@ export default {
   loadFriends() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/friendships')
+      .get(`${APIEndpoints.FRIENDSHIPS}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

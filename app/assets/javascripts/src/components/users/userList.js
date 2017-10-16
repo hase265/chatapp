@@ -12,20 +12,20 @@ export default class UserList extends React.Component {
   static get propTypes() {
     return {
       friends: React.PropTypes.array,
-      currentUser: React.PropTypes.number,
+      currentUserId: React.PropTypes.number,
       searchUsers: React.PropTypes.array,
     }
   }
 
   onHandleChange(toUserId) {
-    const {friends, currentUser} = this.props
+    const {friends, currentUserId} = this.props
     for (let i = 0; i < friends.length; i++) {
       if (friends[i].id === toUserId) {
         this.setState({flash: 'Already you\'re friends!'})
         return
       }
     }
-    if (toUserId === currentUser.id) {
+    if (toUserId === currentUserId) {
       this.setState({flash: 'This is You!'})
       return
     }
@@ -51,7 +51,7 @@ export default class UserList extends React.Component {
             })
           }
         </ul>
-          <p>{flash}</p>
+        <p>{flash}</p>
       </div>
     )
   }

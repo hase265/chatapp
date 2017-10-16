@@ -47,7 +47,7 @@ class SearchUser extends React.Component {
   }
 
   render() {
-    const{searchString} = this.state
+    const{searchString, friends, currentUserId, searchUsers} = this.state
 
     return (
       <div className='search-box'>
@@ -57,7 +57,7 @@ class SearchUser extends React.Component {
           className='search-box__input'
           placeholder='ユーザーを検索'
         />
-        <UserList friends={this.state.friends} currentUser={this.state.currentUser} searchUsers={this.state.searchUsers}/>
+        <UserList friends={friends} currentUserId={currentUserId} searchUsers={searchUsers}/>
       </div>
     )
   }
