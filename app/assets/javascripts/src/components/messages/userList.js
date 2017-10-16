@@ -9,7 +9,7 @@ class UserList extends React.Component {
   static get propTypes() {
     return {
       friends: React.PropTypes.array,
-      toId: React.PropTypes.integer,
+      toId: React.PropTypes.number,
     }
   }
 

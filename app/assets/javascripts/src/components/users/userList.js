@@ -11,9 +11,9 @@ export default class UserList extends React.Component {
 
   static get propTypes() {
     return {
-      friends: React.PropTypes.object,
-      currentUser: React.PropTypes.object,
-      searchUsers: React.PropTypes.string,
+      friends: React.PropTypes.array,
+      currentUser: React.PropTypes.number,
+      searchUsers: React.PropTypes.array,
     }
   }
 

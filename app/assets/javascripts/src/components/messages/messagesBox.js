@@ -7,8 +7,8 @@ class MessagesBox extends React.Component {
 
   static get propTypes() {
     return {
-      toId: React.PropTypes.integer,
-      currentUser: React.PropTypes.object,
+      toId: React.PropTypes.number,
+      currentUser: React.PropTypes.number,
       messages: React.PropTypes.array,
     }
   }
@@ -18,7 +18,7 @@ class MessagesBox extends React.Component {
     const userMessages = _.map(messages, (message) => {
       const messageClasses = classNames({
         'message-box__item': true,
-        'message-box__item--from-current': message.user_id === currentUser.id,
+        'message-box__item--from-current': message.user_id === currentUser,
         'clear': true,
       })
       return (

@@ -12,11 +12,11 @@ class UserStore extends BaseStore {
   }
 
   getCurrentUser() {
-    if (!this.get('currentUser')) this.setCurrentUser([])
+    if (!this.get('currentUser')) this.setCurrentUser({})
     return this.get('currentUser')
   }
-  setCurrentUser(array) {
-    this.set('currentUser', array)
+  setCurrentUser(obj) {
+    this.set('currentUser', obj)
   }
 }
 
@@ -36,7 +36,6 @@ UserStore.dispatchToken = Dispatcher.register(payload => {
       User.emitChange()
       break
   }
-  console.log(action.json)
   return true
 })
 export default User
