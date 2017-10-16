@@ -26,7 +26,7 @@ export default{
   makeFriendships(toUserId) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.FRIENDSHIPS}`)
+      .post(APIEndpoints.FRIENDSHIPS)
       .set('X-CSRF-Token', CSRFToken())
       .send({toUserId})
       .end((error, res) => {
@@ -68,7 +68,7 @@ export default{
   getCurrentUser() {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.CURRENT_USER}`)
+      .get(APIEndpoints.CURRENT_USER)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

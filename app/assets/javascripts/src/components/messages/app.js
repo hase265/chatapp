@@ -20,7 +20,7 @@ class App extends React.Component {
     return {
       friends: MessagesStore.getFriends(),
       toId: MessagesStore.getChangeChat(),
-      currentUserId: UserStore.getCurrentUser(),
+      currentUserId: UserStore.getCurrentUser().id,
       messages: MessagesStore.getMessages(),
     }
   }
