@@ -3,16 +3,16 @@ import Dispatcher from '../dispatcher'
 import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
-  loadMessagesLog(openUserID) {
+  loadMessagesLog(toId) {
     return new Promise((resolve, reject) => {
       request
-      .get(`/api/messages/${openUserID}`)
+      .get(`${APIEndpoints.MESSAGES}/${toId}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.LOAD_MESSAGES_LOG,
-            openUserID,
+            toId,
             json,
           })
           resolve(json)
@@ -26,7 +26,7 @@ export default {
   saveMessage(content, toId) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.MESSAGES}`)
+      .post(APIEndpoints.MESSAGES)
       .set('X-CSRF-Token', CSRFToken())
       .send({content, toId})
       .end((error, res) => {
@@ -47,7 +47,7 @@ export default {
   loadFriends() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/friendships')
+      .get(APIEndpoints.FRIENDSHIPS)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -84,10 +84,10 @@ export default {
       })
     })
   },
-  changeChat(openUserID) {
+  changeChat(toId) {
     Dispatcher.handleViewAction({
       type: ActionTypes.CHANGE_OPEN_CHAT,
-      userID: openUserID,
+      userID: toId,
     })
   },
 }

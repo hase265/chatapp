@@ -1,6 +1,4 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import UsersAction from '../../actions/user'
 import classNames from 'classnames'
@@ -8,51 +6,24 @@ import _ from 'lodash'
 
 class UserList extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = this.initialState
-    this.onChangeHandler = this.onStoreChange.bind(this)
-  }
-
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  getStateFromStores() {
+  static get propTypes() {
     return {
-      friends: MessagesStore.getFriends(),
-      openUserID: MessagesStore.getChangeChat(),
-      currentUser: UserStore.getCurrentUser().id,
+      friends: React.PropTypes.array,
+      toId: React.PropTypes.number,
     }
-  }
-
-  componentDidMount() {
-    MessagesStore.onChange(this.onChangeHandler)
-    UserStore.onChange(this.onChangeHandler)
-  }
-
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    UserStore.offChange(this.onStoreChange.bind(this))
-  }
-
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
   }
 
   onHandleChange(friendId) {
     UsersAction.destroyFriendship(friendId)
   }
 
-  changeOpenChat(openUserID) {
-    MessagesAction.loadMessagesLog(openUserID)
-    MessagesAction.changeChat(openUserID)
-    UsersAction.getCurrentUser()
+  changeOpenChat(toId) {
+    MessagesAction.loadMessagesLog(toId)
+    MessagesAction.changeChat(toId)
   }
 
   render() {
-    const {friends, openUserID} = this.state
-
+    const {friends, toId} = this.props
     return (
       <div className='user-list'>
         <ul className='user-list__item'>
@@ -60,7 +31,7 @@ class UserList extends React.Component {
             const itemClasses = classNames({
               'user-list__item': true,
               'clear': true,
-              'user-list__item--active': openUserID === friend.id,
+              'user-list__item--active': friend.id === toId,
             })
 
             return (

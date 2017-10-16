@@ -77,5 +77,4 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   return true
 })
 
-window.MS = MessagesStore
 export default MessagesStore

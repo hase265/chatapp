@@ -1,63 +1,58 @@
 import React from 'react'
-import UserStore from '../../stores/user'
 import UsersAction from '../../actions/user'
 import _ from 'lodash'
 
 export default class UserList extends React.Component {
-  static get propTypes() {
-    return {
-      searchString: React.PropTypes.string,
-    }
-  }
 
   constructor(props) {
     super(props)
-    this.state = this.initialState
+    this.state = {flash: ''}
   }
 
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  getStateFromStores() {
+  static get propTypes() {
     return {
-      users: UserStore.getUsers(),
+      friends: React.PropTypes.array,
+      currentUserId: React.PropTypes.number,
+      searchUsers: React.PropTypes.array,
     }
   }
 
-  componentDidMount() {
-    UserStore.onChange(this.onStoreChange.bind(this))
-  }
-
-  componentWillUnmount() {
-    UserStore.offChange(this.onStoreChange.bind(this))
-  }
-
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
-  }
-
-  onHandleChange(to_user_id) {
-    UsersAction.makeFriendships(to_user_id)
+  onHandleChange(toUserId) {
+    const {friends, currentUserId} = this.props
+    for (let i = 0; i < friends.length; i++) {
+      if (friends[i].id === toUserId) {
+        this.setState({flash: 'Already you\'re friends!'})
+        return
+      }
+    }
+    if (toUserId === currentUserId) {
+      this.setState({flash: 'This is You!'})
+      return
+    }
+    this.setState({flash: 'Congratulations! Let\'s Start Chat!'})
+    UsersAction.makeFriendships(toUserId)
   }
 
   render() {
-    const searchUsers = this.state.users
-
+    const {flash} = this.state
+    const {searchUsers} = this.props
     return (
-      <ul className='search_user_list'>
-        {
-          _.map(searchUsers, (user) => {
-            return (
-              <li className='search_user_list_item' key={user.id}>
-                <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, user.id)}>
-                  {user.username}
-                </div>
-              </li>
-            )
-          })
-        }
-      </ul>
+      <div>
+        <ul className='search_user_list'>
+          {
+            _.map(searchUsers, (searchUser) => {
+              return (
+                <li className='search_user_list_item' key={searchUser.id}>
+                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchUser.id)}>
+                    {searchUser.username}
+                  </div>
+                </li>
+              )
+            })
+          }
+        </ul>
+        <p>{flash}</p>
+      </div>
     )
   }
 }

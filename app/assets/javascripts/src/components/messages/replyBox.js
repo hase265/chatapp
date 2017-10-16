@@ -1,44 +1,22 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import UserStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = this.initialState
-    this.onChangeHandler = this.onStoreChange.bind(this)
-  }
-
-  get initialState() {
-    return this.getStateFromStores()
-  }
-
-  componentDidMount() {
-    MessagesStore.onChange(this.onChangeHandler)
-    UserStore.onChange(this.onChangeHandler)
-  }
-
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onChangeHandler)
-    UserStore.offChange(this.onChangeHandler)
-  }
-
-  getStateFromStores() {
+  static get propTypes() {
     return {
-      value: '',
-      file: '',
-      toId: MessagesStore.getChangeChat(),
+      toId: React.PropTypes.number,
     }
   }
 
-  onStoreChange() {
-    this.setState(this.getStateFromStores())
+  constructor(props) {
+    super(props)
+    this.state = {value: ''}
   }
 
   handleKeyDown(e) {
-    const {value, toId} = this.state
+    const {value} = this.state
+    const {toId} = this.props
     if (e.keyCode === 13 && value !== '') {
       MessagesAction.saveMessage(value, toId)
       this.setState({
@@ -57,7 +35,7 @@ class ReplyBox extends React.Component {
       return
     }
     const file = e.target.files[0]
-    MessagesAction.saveImageChat(file, this.state.toId)
+    MessagesAction.saveImageChat(file, this.props.toId)
   }
 
   render() {

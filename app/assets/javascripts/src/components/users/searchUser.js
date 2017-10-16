@@ -1,45 +1,63 @@
 import React from 'react'
+import MessagesStore from '../../stores/messages'
+import UserStore from '../../stores/user'
 import UsersAction from '../../actions/user'
 import UserList from './userList'
 
 class SearchUser extends React.Component {
-  static get propTypes() {
-    return {
-      username: React.PropTypes.string,
-    }
-  }
 
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
+    return Object.assign({searchString: ''}, this.getStateFromStores())
+  }
+
+  getStateFromStores() {
     return {
-      username: '',
+      friends: MessagesStore.getFriends(),
+      currentUserId: UserStore.getCurrentUser().id,
+      searchUsers: UserStore.getUsers(),
     }
   }
 
+  componentDidMount() {
+    UserStore.onChange(this.onChangeHandler)
+    MessagesStore.onChange(this.onChangeHandler)
+  }
+
+  componentWillUnmount() {
+    UserStore.offChange(this.onChangeHandler)
+    MessagesStore.offChange(this.onChangeHandler)
+  }
+
+  onStoreChange() {
+    this.setState(this.getStateFromStores())
+  }
+
   handleChange(e) {
-    const username = e.target.value
+    const searchString = e.target.value
     this.setState({
-      username,
+      searchString,
     })
-    UsersAction.loadSearchUsers(username)
+    UsersAction.loadSearchUsers(searchString)
   }
 
   render() {
-    const{username} = this.state
+    const{searchString, friends, currentUserId, searchUsers} = this.state
 
     return (
       <div className='search-box'>
         <input
-          value={username}
-          onChange={ this.handleChange.bind(this) }
+          value={searchString}
+          onChange={this.handleChange.bind(this)}
           className='search-box__input'
           placeholder='ユーザーを検索'
         />
-        <UserList {...this.state} />
+        <UserList friends={friends} currentUserId={currentUserId} searchUsers={searchUsers}/>
       </div>
     )
   }
