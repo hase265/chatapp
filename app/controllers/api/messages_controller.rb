@@ -8,7 +8,7 @@ module Api
     end
 
     def create
-      @message = current_user.messages.create(content: params[:content], to_id: params[:toId])
+      @message = current_user.messages.create(content: params[:content], to_id: params[:to_id])
       render json: {messages: @message}
     end
 

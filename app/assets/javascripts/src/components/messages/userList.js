@@ -1,6 +1,6 @@
 import React from 'react'
 import MessagesAction from '../../actions/messages'
-import UsersAction from '../../actions/user'
+import UsersAction from '../../actions/users'
 import classNames from 'classnames'
 import _ from 'lodash'
 
@@ -9,7 +9,7 @@ class UserList extends React.Component {
   static get propTypes() {
     return {
       friends: React.PropTypes.array,
-      toId: React.PropTypes.number,
+      chatUserId: React.PropTypes.number,
     }
   }
 
@@ -17,13 +17,13 @@ class UserList extends React.Component {
     UsersAction.destroyFriendship(friendId)
   }
 
-  changeOpenChat(toId) {
-    MessagesAction.loadMessagesLog(toId)
-    MessagesAction.changeChat(toId)
+  changeOpenChat(chatUserId) {
+    MessagesAction.getMessages(chatUserId)
+    MessagesAction.getChatUserId(chatUserId)
   }
 
   render() {
-    const {friends, toId} = this.props
+    const {friends, chatUserId} = this.props
     return (
       <div className='user-list'>
         <ul className='user-list__item'>
@@ -31,12 +31,14 @@ class UserList extends React.Component {
             const itemClasses = classNames({
               'user-list__item': true,
               'clear': true,
-              'user-list__item--active': friend.id === toId,
+              'user-list__item--active': friend.id === chatUserId,
             })
 
             return (
               <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)} className={itemClasses}>
-                <div className='user-list__item'>{friend.username} <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span></div>
+                <div className='user-list__item'>{friend.username}
+                  <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span>
+                </div>
               </li>
             )
           })}

@@ -1,15 +1,15 @@
 import keyMirror from 'keymirror'
 
 export const ActionTypes = keyMirror({
-  LOAD_MESSAGES_LOG: null,
+  GET_MESSAGES: null,
   SAVE_MESSAGE: null,
   LOAD_USERS: null,
-  LOAD_SEARCH_USERS: null,
+  GET_SEARCH_USERS: null,
   MAKE_FRIENDSHIPS: null,
-  LOAD_FRIENDS: null,
+  GET_FRIENDS: null,
   DESTROY_FRIENDSHIP: null,
   GET_CURRENT_USER: null,
-  CHANGE_OPEN_CHAT: null,
+  GET_CHAT_USER_ID: null,
   SAVE_IMAGE_CHAT: null,
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import UsersAction from '../../actions/user'
+import UsersAction from '../../actions/users'
 import classNames from 'classnames'
 import _ from 'lodash'
 

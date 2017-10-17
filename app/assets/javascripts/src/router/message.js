@@ -1,12 +1,11 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
 import App from '../components/messages/app'
-import MessagesAction from '../actions/messages'
-import UsersAction from '../actions/user'
+import UsersAction from '../actions/users'
 
 export default class MessageRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateApp, this.loadFriends, this.getCurrentUser)
+    this.route('/', this.decorateApp, this.getFriends, this.getCurrentUser)
   }
 
   getCurrentUser(ctx, next) {
@@ -14,8 +13,8 @@ export default class MessageRouter extends BaseRouter {
     next()
   }
 
-  loadFriends(ctx, next) {
-    MessagesAction.loadFriends()
+  getFriends(ctx, next) {
+    UsersAction.getFriends()
     next()
   }
 

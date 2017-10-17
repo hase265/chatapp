@@ -1,7 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
-import UsersAction from '../../actions/user'
+import UsersStore from '../../stores/users'
+import UsersAction from '../../actions/users'
 import UserList from './userList'
 
 class SearchUser extends React.Component {
@@ -18,19 +18,19 @@ class SearchUser extends React.Component {
 
   getStateFromStores() {
     return {
-      friends: MessagesStore.getFriends(),
-      currentUserId: UserStore.getCurrentUser().id,
-      searchUsers: UserStore.getUsers(),
+      friends: UsersStore.getFriends(),
+      currentUserId: UsersStore.getCurrentUser().id,
+      searchUsers: UsersStore.getSearchUsers(),
     }
   }
 
   componentDidMount() {
-    UserStore.onChange(this.onChangeHandler)
+    UsersStore.onChange(this.onChangeHandler)
     MessagesStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
-    UserStore.offChange(this.onChangeHandler)
+    UsersStore.offChange(this.onChangeHandler)
     MessagesStore.offChange(this.onChangeHandler)
   }
 
@@ -43,7 +43,7 @@ class SearchUser extends React.Component {
     this.setState({
       searchString,
     })
-    UsersAction.loadSearchUsers(searchString)
+    UsersAction.getSearchUsers(searchString)
   }
 
   render() {
