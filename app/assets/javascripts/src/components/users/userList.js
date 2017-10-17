@@ -1,12 +1,13 @@
 import React from 'react'
 import UsersAction from '../../actions/user'
+import classNames from 'classnames'
 import _ from 'lodash'
 
 export default class UserList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {flash: ''}
+    this.state = {flash: '', toUserId: 0}
   }
 
   static get propTypes() {
@@ -34,16 +35,21 @@ export default class UserList extends React.Component {
   }
 
   render() {
-    const {flash} = this.state
+    const {flash, toUserId} = this.state
     const {searchUsers} = this.props
     return (
-      <div>
-        <ul className='search_user_list'>
+      <div className='search-user-list'>
+        <ul className='search-user-list__item'>
           {
             _.map(searchUsers, (searchUser) => {
+              const itemClasses = classNames({
+                'search-user-list__item': true,
+                'clear': true,
+                'search-user-list__item--active': searchUser.id === toUserId,
+              })
               return (
-                <li className='search_user_list_item' key={searchUser.id}>
-                  <div className='search_user_list_result' onClick={this.onHandleChange.bind(this, searchUser.id)}>
+                <li className={itemClasses} key={searchUser.id}>
+                  <div className='search-user-list__item__name' onClick={this.onHandleChange.bind(this, searchUser.id)}>
                     {searchUser.username}
                   </div>
                 </li>
