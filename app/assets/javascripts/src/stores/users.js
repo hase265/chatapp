@@ -2,12 +2,13 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
 
-class UserStore extends BaseStore {
-  getUsers() {
-    if (!this.get('users')) this.setUsers([])
+class UsersStore extends BaseStore {
+
+  getSearchUsers() {
+    if (!this.get('users')) this.setSearchUsers([])
     return this.get('users')
   }
-  setUsers(array) {
+  setSearchUsers(array) {
     this.set('users', array)
   }
 
@@ -18,16 +19,25 @@ class UserStore extends BaseStore {
   setCurrentUser(obj) {
     this.set('currentUser', obj)
   }
+
+  getFriends() {
+    if (!this.get('friends')) this.setFriends([])
+    return this.get('friends')
+  }
+  setFriends(array) {
+    this.set('friends', array)
+  }
+
 }
 
-const User = new UserStore()
+const User = new UsersStore()
 
-UserStore.dispatchToken = Dispatcher.register(payload => {
+UsersStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
-    case ActionTypes.LOAD_SEARCH_USERS:
-      User.setUsers(action.json)
+    case ActionTypes.GET_SEARCH_USERS:
+      User.setSearchUsers(action.json)
       User.emitChange()
       break
 
@@ -35,6 +45,12 @@ UserStore.dispatchToken = Dispatcher.register(payload => {
       User.setCurrentUser(action.json)
       User.emitChange()
       break
+
+    case ActionTypes.GET_FRIENDS:
+      User.setFriends(action.json)
+      User.emitChange()
+      break
+
   }
   return true
 })

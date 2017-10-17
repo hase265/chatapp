@@ -2,7 +2,7 @@ import React from 'react'
 import MessagesBox from './messagesBox'
 import UserList from './userList'
 import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
+import UsersStore from '../../stores/users'
 
 class App extends React.Component {
 
@@ -18,21 +18,21 @@ class App extends React.Component {
 
   getStateFromStores() {
     return {
-      friends: MessagesStore.getFriends(),
-      toId: MessagesStore.getChangeChat(),
-      currentUserId: UserStore.getCurrentUser().id,
+      friends: UsersStore.getFriends(),
+      chatUserId: MessagesStore.getChatUserId(),
+      currentUserId: UsersStore.getCurrentUser().id,
       messages: MessagesStore.getMessages(),
     }
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
-    UserStore.onChange(this.onChangeHandler)
+    UsersStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
-    UserStore.offChange(this.onChangeHandler)
+    UsersStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {
@@ -40,11 +40,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {friends, toId, currentUserId, messages} = this.state
+    const {friends, chatUserId, currentUserId, messages} = this.state
     return (
       <div className='app'>
-        <UserList friends={friends} toId={toId} />
-        <MessagesBox toId={toId} currentUserId={currentUserId} messages={messages} />
+        <UserList friends={friends} chatUserId={chatUserId} />
+        <MessagesBox chatUserId={chatUserId} currentUserId={currentUserId} messages={messages} />
       </div>
     )
   }

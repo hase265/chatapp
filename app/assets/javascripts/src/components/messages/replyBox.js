@@ -5,7 +5,7 @@ class ReplyBox extends React.Component {
 
   static get propTypes() {
     return {
-      toId: React.PropTypes.number,
+      chatUserId: React.PropTypes.number,
     }
   }
 
@@ -16,9 +16,9 @@ class ReplyBox extends React.Component {
 
   handleKeyDown(e) {
     const {value} = this.state
-    const {toId} = this.props
+    const {chatUserId} = this.props
     if (e.keyCode === 13 && value !== '') {
-      MessagesAction.saveMessage(value, toId)
+      MessagesAction.saveMessage(value, chatUserId)
       this.setState({
         value: '',
       })
@@ -30,12 +30,12 @@ class ReplyBox extends React.Component {
     })
   }
 
-  loadImages(e) {
+  saveImage(e) {
     if (!e.target.files) {
       return
     }
     const file = e.target.files[0]
-    MessagesAction.saveImageChat(file, this.props.toId)
+    MessagesAction.saveImageChat(file, this.props.chatUserId)
   }
 
   render() {
@@ -52,7 +52,7 @@ class ReplyBox extends React.Component {
         <input
           type='file'
           ref='image'
-          onChange={this.loadImages.bind(this)}
+          onChange={this.saveImage.bind(this)}
         />
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send

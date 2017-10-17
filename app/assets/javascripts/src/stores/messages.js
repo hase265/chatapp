@@ -12,28 +12,12 @@ class ChatStore extends BaseStore {
     this.set('userMessages', array)
   }
 
-  getFriends() {
-    if (!this.get('friends')) this.setFriends([])
-    return this.get('friends')
-  }
-  setFriends(array) {
-    this.set('friends', array)
-  }
-
-  getChangeChat() {
-    if (!this.get('chat')) this.setChangeChat(0)
+  getChatUserId() {
+    if (!this.get('chat')) this.setChatUserId(0)
     return this.get('chat')
   }
-  setChangeChat(id) {
+  setChatUserId(id) {
     this.set('chat', id)
-  }
-
-  getImage() {
-    if (!this.get('image')) this.setImage({})
-    return this.get('image')
-  }
-  setImage(obj) {
-    this.set('image', obj)
   }
 }
 
@@ -43,7 +27,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
-    case ActionTypes.LOAD_MESSAGES_LOG:
+    case ActionTypes.GET_MESSAGES:
       MessagesStore.setMessages(action.json)
       MessagesStore.emitChange()
       break
@@ -56,13 +40,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
       break
 
-    case ActionTypes.LOAD_FRIENDS:
-      MessagesStore.setFriends(action.json)
-      MessagesStore.emitChange()
-      break
-
-    case ActionTypes.CHANGE_OPEN_CHAT:
-      MessagesStore.setChangeChat(action.userID)
+    case ActionTypes.GET_CHAT_USER_ID:
+      MessagesStore.setChatUserId(action.userID)
       MessagesStore.emitChange()
       break
 

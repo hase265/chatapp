@@ -3,7 +3,27 @@ import Dispatcher from '../dispatcher'
 import {APIEndpoints, ActionTypes, CSRFToken} from '../constants/app'
 
 export default{
-  loadSearchUsers(searchString) {
+  
+  getFriends() {
+    return new Promise((resolve, reject) => {
+      request
+      .get(APIEndpoints.FRIENDSHIPS)
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.GET_FRIENDS,
+            json,
+          })
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  getSearchUsers(searchString) {
     return new Promise((resolve, reject) => {
       request
       .get(`${APIEndpoints.USERS}/search`)
@@ -12,7 +32,7 @@ export default{
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.LOAD_SEARCH_USERS,
+            type: ActionTypes.GET_SEARCH_USERS,
             json,
           })
           resolve(json)
@@ -54,7 +74,7 @@ export default{
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.LOAD_FRIENDS,
+            type: ActionTypes.GET_FRIENDS,
             json,
           })
           resolve(json)
