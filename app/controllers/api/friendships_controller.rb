@@ -13,6 +13,7 @@ module Api
     end
 
     def destroy
+      # ここはfriendship = current_user.friends(params[:id])でいける？
       friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id]) ||
                    Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
       return if friendship.nil?

@@ -38,6 +38,7 @@ class SearchUser extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
+  // handleChangeだと何のためのメソッドかわかりづらいかな
   handleChange(e) {
     const searchString = e.target.value
     this.setState({

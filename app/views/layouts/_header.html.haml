@@ -7,6 +7,7 @@
   %nav
     %ul.nav.navbar-nav.navbar-right#menu
       -if user_signed_in?
+        / %li<の「<」はいらないかな
         %li<
           =link_to 'ユーザーを探す', users_search_path
         %li<

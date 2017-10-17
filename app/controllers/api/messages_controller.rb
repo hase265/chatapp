@@ -2,6 +2,7 @@ module Api
   class MessagesController < ApplicationController
     before_action :authenticate_user!
 
+    # indexアクション使ってない??
     def index
       @messages = Message.all
       render json: @messages
@@ -9,6 +10,7 @@ module Api
 
     def create
       @message = current_user.messages.create(content: params[:content], to_id: params[:to_id])
+      # ここはやっぱり{message: @message}の方がいい気がする
       render json: {messages: @message}
     end
 
@@ -24,6 +26,7 @@ module Api
       @image_message.to_id = params[:to_id]
       @image_message.set_image(params[:image])
       @image_message.save
+      # こっちも{message: @image_message}がいいね
       render json: {messages: @image_message}
     end
 

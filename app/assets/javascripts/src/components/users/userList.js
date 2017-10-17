@@ -18,6 +18,7 @@ export default class UserList extends React.Component {
     }
   }
 
+  // onHandleChangeだと何のためのメソッドかわかりづらいかな
   onHandleChange(toUserId) {
     const {friends, currentUserId} = this.props
     for (let i = 0; i < friends.length; i++) {
