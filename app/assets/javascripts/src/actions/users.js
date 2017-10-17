@@ -3,7 +3,7 @@ import Dispatcher from '../dispatcher'
 import {APIEndpoints, ActionTypes, CSRFToken} from '../constants/app'
 
 export default{
-  
+
   getFriends() {
     return new Promise((resolve, reject) => {
       request
