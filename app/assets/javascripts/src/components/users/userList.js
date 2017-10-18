@@ -18,8 +18,7 @@ export default class UserList extends React.Component {
     }
   }
 
-  // onHandleChangeだと何のためのメソッドかわかりづらいかな
-  onHandleChange(toUserId) {
+  setFlashMessage(toUserId) {
     const {friends, currentUserId} = this.props
     for (let i = 0; i < friends.length; i++) {
       if (friends[i].id === toUserId) {
@@ -50,7 +49,7 @@ export default class UserList extends React.Component {
               })
               return (
                 <li className={itemClasses} key={searchUser.id}>
-                  <div className='search-user-list__item__name' onClick={this.onHandleChange.bind(this, searchUser.id)}>
+                  <div className='search-user-list__item__name' onClick={this.setFlashMessage.bind(this, searchUser.id)}>
                     {searchUser.username}
                   </div>
                 </li>

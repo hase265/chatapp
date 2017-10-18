@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
 
-class ChatStore extends BaseStore {
+class MessagesStore extends BaseStore {
 
   getMessages() {
     if (!this.get('userMessages')) this.setMessages([])
@@ -12,50 +12,48 @@ class ChatStore extends BaseStore {
     this.set('userMessages', array)
   }
 
-  // chatUserIdを保存するためのkeyがchatなのは変えた方がいいかも
   getChatUserId() {
-    if (!this.get('chat')) this.setChatUserId(0)
-    return this.get('chat')
+    if (!this.get('chatUserId')) this.setChatUserId(0)
+    return this.get('chatUserId')
   }
   setChatUserId(id) {
-    this.set('chat', id)
+    this.set('chatUserId', id)
   }
 }
 
-// 細かいけどここの変数名もしくはクラス名は再考の余地あり！
-const MessagesStore = new ChatStore()
+const messagesStore = new MessagesStore()
 
-MessagesStore.dispatchToken = Dispatcher.register(payload => {
+messagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
     case ActionTypes.GET_MESSAGES:
-      MessagesStore.setMessages(action.json)
-      MessagesStore.emitChange()
+      messagesStore.setMessages(action.json)
+      messagesStore.emitChange()
       break
 
     case ActionTypes.SAVE_MESSAGE:
-      const messages = MessagesStore.getMessages()
+      const messages = messagesStore.getMessages()
       messages.push(
-        action.json.messages
+        action.json.message
       )
-      MessagesStore.emitChange()
+      messagesStore.emitChange()
       break
 
     case ActionTypes.GET_CHAT_USER_ID:
-      MessagesStore.setChatUserId(action.userID)
-      MessagesStore.emitChange()
+      messagesStore.setChatUserId(action.userID)
+      messagesStore.emitChange()
       break
 
     case ActionTypes.SAVE_IMAGE_CHAT:
-      const chats = MessagesStore.getMessages()
+      const chats = messagesStore.getMessages()
       chats.push(
-        action.json.messages
+        action.json.message
       )
-      MessagesStore.emitChange()
+      messagesStore.emitChange()
       break
   }
   return true
 })
 
-export default MessagesStore
+export default messagesStore

@@ -69,7 +69,6 @@ export default{
       request
       .delete(`${APIEndpoints.FRIENDSHIPS}/${friendId}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({friendId}) // このsendは不要??
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
