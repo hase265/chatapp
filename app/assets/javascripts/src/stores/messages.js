@@ -12,6 +12,7 @@ class ChatStore extends BaseStore {
     this.set('userMessages', array)
   }
 
+  // chatUserIdを保存するためのkeyがchatなのは変えた方がいいかも
   getChatUserId() {
     if (!this.get('chat')) this.setChatUserId(0)
     return this.get('chat')
@@ -21,6 +22,7 @@ class ChatStore extends BaseStore {
   }
 }
 
+// 細かいけどここの変数名もしくはクラス名は再考の余地あり！
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {

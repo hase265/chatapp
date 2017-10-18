@@ -61,6 +61,7 @@ export default {
       })
     })
   },
+  // これはむしろsetChatUserIdかな？
   getChatUserId(chatUserId) {
     Dispatcher.handleViewAction({
       type: ActionTypes.GET_CHAT_USER_ID,

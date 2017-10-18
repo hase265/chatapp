@@ -13,6 +13,7 @@ class UserList extends React.Component {
     }
   }
 
+  // onHandleChangeだと何のためのメソッドかわかりづらいかな
   onHandleChange(friendId) {
     UsersAction.destroyFriendship(friendId)
   }
@@ -36,7 +37,7 @@ class UserList extends React.Component {
 
             return (
               <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)} className={itemClasses}>
-                <div className='user-list__item'>{friend.username}
+                <div className='user-list__item'>{friend.username} // friend.usernameも41行目にあった方が自然かな
                   <span onClick={this.onHandleChange.bind(this, friend.id)}>削除</span>
                 </div>
               </li>

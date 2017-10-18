@@ -30,6 +30,7 @@ class UsersStore extends BaseStore {
 
 }
 
+// 細かいけどここの変数名もしくはクラス名は再考の余地あり！
 const User = new UsersStore()
 
 UsersStore.dispatchToken = Dispatcher.register(payload => {
