@@ -7,15 +7,13 @@ module Api
 
     def create
       @user = User.find(params[:toUserId])
-      return if current_user.friends(params[:toUserId])
-      current_user.make_friends(@user)
+      return if current_user.is_friend_with(params[:toUserId])
+      current_user.make_friends_with(@user.id)
       render json: {friendship: @user}
     end
 
     def destroy
-      # ここはfriendship = current_user.friends(params[:id])でいける？
-      friendship = Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id]) ||
-                   Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
+      friendship = current_user.is_friend_with(params[:id])
       return if friendship.nil?
       friendship.destroy
       @users = current_user.following + current_user.follower

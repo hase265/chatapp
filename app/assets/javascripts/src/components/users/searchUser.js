@@ -38,8 +38,7 @@ class SearchUser extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
-  // handleChangeだと何のためのメソッドかわかりづらいかな
-  handleChange(e) {
+  searchUsers(e) {
     const searchString = e.target.value
     this.setState({
       searchString,
@@ -54,7 +53,7 @@ class SearchUser extends React.Component {
       <div className='search-box'>
         <input
           value={searchString}
-          onChange={this.handleChange.bind(this)}
+          onChange={this.searchUsers.bind(this)}
           className='search-box__input'
           placeholder='ユーザーを検索'
         />

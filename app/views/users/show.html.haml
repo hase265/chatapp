@@ -1,8 +1,7 @@
 %ul.raw
-  / こっちも「<」いらないかな
-  %li<
+  %li
     = @user.username
-  %li<
+  %li
     = @user.email
   -if current_user
     =link_to 'プロフィール編集', edit_user_registration_path

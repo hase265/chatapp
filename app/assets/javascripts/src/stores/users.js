@@ -30,29 +30,28 @@ class UsersStore extends BaseStore {
 
 }
 
-// 細かいけどここの変数名もしくはクラス名は再考の余地あり！
-const User = new UsersStore()
+const usersStore = new UsersStore()
 
-UsersStore.dispatchToken = Dispatcher.register(payload => {
+usersStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
     case ActionTypes.GET_SEARCH_USERS:
-      User.setSearchUsers(action.json)
-      User.emitChange()
+      usersStore.setSearchUsers(action.json)
+      usersStore.emitChange()
       break
 
     case ActionTypes.GET_CURRENT_USER:
-      User.setCurrentUser(action.json)
-      User.emitChange()
+      usersStore.setCurrentUser(action.json)
+      usersStore.emitChange()
       break
 
     case ActionTypes.GET_FRIENDS:
-      User.setFriends(action.json)
-      User.emitChange()
+      usersStore.setFriends(action.json)
+      usersStore.emitChange()
       break
 
   }
   return true
 })
-export default User
+export default usersStore
