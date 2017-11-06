@@ -1,7 +1,8 @@
-%ul.raw
-  %li
-    = @user.username
-  %li
-    = @user.email
-  -if current_user
-    =link_to 'プロフィール編集', edit_user_registration_path
+.profile
+  %ul
+    %li
+      = @user.username
+    %li
+      = @user.email
+    -if current_user
+      =link_to 'プロフィール編集', edit_user_registration_path
