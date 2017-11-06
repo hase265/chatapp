@@ -22,6 +22,12 @@
       }
     }
 
+    &--destroy{
+      cursor: pointer;
+      float: right;
+      color: rgba(255, 10, 10, 0.5);
+    }
+
     &--active {
       background: #ffa500;
       color: #fff;

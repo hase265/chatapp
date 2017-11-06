@@ -8,6 +8,8 @@
 /.bundle
 /node_modules
 npm-debug.log
+/vendor/bundle
+
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

@@ -37,7 +37,7 @@ class UserList extends React.Component {
             return (
               <li key={friend.id} onClick={this.changeOpenChat.bind(this, friend.id)} className={itemClasses}>
                 <div className='user-list__item'>
-                  {friend.username}<span onClick={this.destroyFriendship.bind(this, friend.id)}> 削除</span>
+                  {friend.username}<span className='user-list__item--destroy' onClick={this.destroyFriendship.bind(this, friend.id)}> 削除</span>
                 </div>
               </li>
             )
